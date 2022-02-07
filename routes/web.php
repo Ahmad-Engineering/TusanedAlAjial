@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TusanedController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,7 @@ Route::prefix('tusaned')->group(function () {
     Route::get('submit-idea-three', [TusanedController::class, 'showSubmitIdeaThree'])->name('submit.idea.three');
     Route::get('submit-idea-four', [TusanedController::class, 'showSubmitIdeaFour'])->name('submit.idea.four');
     Route::get('submit-idea-five', [TusanedController::class, 'showSubmitIdeaFive'])->name('submit.idea.five');
+
+    // CONTACT US POST ACTION
+    Route::resource('contact-us-sending', ContactController::class);
 });

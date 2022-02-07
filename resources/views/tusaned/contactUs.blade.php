@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{asset('tusaned/css/style.css')}}" />
 
     <link rel="stylesheet" href="{{asset('tusaned/css/mediaQ.css')}}" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('tusaned/toastr/toastr.min.css')}}">
   </head>
   <body>
     <div id="loading-wrapper">
@@ -199,7 +201,7 @@
                 </div>
               </div>
               <div class="contact-form mt-2">
-                <form action="">
+                <form id="contact-form">
                   <div class="row">
                     <div class="col-12 col-sm-6 col-md-12 mt-2">
                       <label>الاسم كاملا : </label>
@@ -209,6 +211,7 @@
                         required=""
                         type="text"
                         placeholder="مثال: محمد أحمد محمود عبدالله"
+                        id="full_name"
                       />
                     </div>
                     <div class="col-12 col-sm-6 col-md-12 mt-2">
@@ -219,6 +222,7 @@
                         required=""
                         type="text"
                         placeholder="مثال: 00972591234567"
+                        id="phone"
                       />
                     </div>
                     <div class="col-12 col-sm-6 col-md-12 mt-2">
@@ -229,13 +233,14 @@
                         required=""
                         type="email"
                         placeholder="مثال: example123@gmail.com"
+                        id="email"
                       />
                     </div>
                     <div class="col-12 col-sm-6 col-md-12 mt-2">
                       <label> الرسالة : </label>
                       <textarea
                         name="text-mes"
-                        id="text-mes"
+                        id="msg"
                         cols="30"
                         rows="5"
                         class="form-control form-control-lg"
@@ -245,7 +250,7 @@
                     </div>
                   </div>
                   <div class="submit-btn">
-                    <input type="submit" value="ارسال" />
+                    <input type="button" onclick="contact()" value="ارسال" />
                   </div>
                 </form>
               </div>
@@ -315,7 +320,35 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.js"></script>
-
+    {{-- AXIOS LIBRARY --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Toastr -->
+    <script src="{{asset('tusaned/toastr/toastr.min.js')}}"></script>
     <script src="js/script.js"></script>
+    <script>
+        function contact () {
+        // alert('Sure');
+            axios.post('/tusaned/contact-us-sending', {
+                full_name: document.getElementById('full_name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                msg: document.getElementById('msg').value,
+            })
+                .then(function (response) {
+                // handle success
+                console.log(response);
+                toastr.success(response.data.message);
+                document.getElementById('contact-form').reset();
+                })
+                .catch(function (error) {
+                // handle error
+                console.log(error);
+                toastr.error(error.response.data.message)
+                })
+                .then(function () {
+                // always executed
+                });
+            }
+    </script>
   </body>
 </html>
