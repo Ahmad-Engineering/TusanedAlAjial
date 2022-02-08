@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ApplyIdea;
 use App\Models\IdeaDesc;
+use App\Models\IdeaOutputs;
 use App\Models\Staff;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
@@ -120,6 +121,33 @@ class ApplyIdeaController extends Controller
         }else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function outputs (Request $request) {
+        $validator = Validator($request->all(), [
+            'outputs' => 'required|string|min:10|max:300',
+            'pin' => 'required|string|min:9|max:20|exists:apply_ideas,pin'
+        ]);
+
+        if (!$validator->fails()) {
+            // GETTING IDEA
+            $idea = ApplyIdea::select(['id'])->where('pin', $request->get('pin'))->latest('created_at')->first();
+
+            $idea_outputs = new IdeaOutputs();
+            $idea_outputs->outputs = $request->get('outputs');
+            $idea_outputs->idea_id = $idea->id;
+
+            $isSaved = $idea_outputs->save();
+
+            return response()->json([
+                'message' => $isSaved ? 'تم حفظ التقدم' : 'حدث خطأ ما يرجى المحاولة مرة أخرى',
+            ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first(),
             ], Response::HTTP_BAD_REQUEST);
         }
     }

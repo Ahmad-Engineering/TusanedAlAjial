@@ -331,7 +331,7 @@
                       class="form-control form-control-lg"
                       name="name-idea"
                       required=""
-                      type="text"
+                      type="number"
                       placeholder="مثال: ادخل عدد الذكور"
                       id="male-no"
                     />
@@ -342,7 +342,7 @@
                       class="form-control form-control-lg"
                       name="name-idea"
                       required=""
-                      type="text"
+                      type="number"
                       placeholder="مثال: ادخل عدد الاناث"
                       id="female-no"
                     />

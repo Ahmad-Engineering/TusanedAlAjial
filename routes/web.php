@@ -49,6 +49,7 @@ Route::prefix('tusaned')->group(function () {
     Route::post('personal-info', [ApplyIdeaController::class, 'personalInfo']);
     Route::post('delegations-names', [ApplyIdeaController::class, 'delegatesNames']);
     Route::post('idea-desc', [ApplyIdeaController::class, 'ideaDesc']);
+    Route::post('idea-outputs', [ApplyIdeaController::class, 'outputs']);
 
     // CONTACT US POST ACTION
     Route::resource('contact-us-sending', ContactController::class);

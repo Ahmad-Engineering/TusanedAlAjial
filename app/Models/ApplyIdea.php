@@ -16,4 +16,8 @@ class ApplyIdea extends Model
     public function descs () {
         return $this->hasMany(IdeaDesc::class, 'idea_id', 'id');
     }
+
+    public function outputs () {
+        return $this->hasOne(IdeaOutputs::class, 'idea_id', 'id');
+    }
 }

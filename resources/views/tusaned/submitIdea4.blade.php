@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{asset('tusaned/css/submitIdea.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/style.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/mediaQ.css')}}" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('tusaned/toastr/toastr.min.css')}}">
   </head>
   <body>
     <div id="loading-wrapper">
@@ -211,12 +213,23 @@
                     <label> المخرجات المتوقعة من المبادرة : </label>
                     <textarea
                       name="output-idea"
-                      id="desc-idea"
+                      id="outputs"
                       cols="30"
                       rows="5"
                       class="form-control form-control-lg form-control-lg"
                       placeholder="الرجاء تحديد تصور للنتائج والإنجازات المتوقع تحقيقها من خلال أنشطة المبادرة..."
                     ></textarea>
+                  </div>
+                  <div class="col-md-6 mt-2">
+                    <label> رقم الهوية : </label>
+                    <input
+                      class="form-control form-control-lg"
+                      name="num-iden"
+                      required=""
+                      type="number"
+                      placeholder="مثال: 405060123"
+                      id="pin"
+                    />
                   </div>
                 </div>
               </div>
@@ -235,7 +248,7 @@
               <a href="{{route('submit.idea.three')}}"> السابق</a>
             </div>
             <div class="next-btn mt-2 mt-md-5 mb-2 mt-sm-3">
-              <a href="{{route('submit.idea.five')}}"> التالي</a>
+              <a href="#" id="Link4" onclick="outputs()"> التالي</a>
             </div>
             </div>
           </div>
@@ -299,5 +312,32 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
+        {{-- AXIOS LIBRARY --}}
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <!-- Toastr -->
+        <script src="{{asset('tusaned/toastr/toastr.min.js')}}"></script>
+        <script>
+            function outputs () {
+            // alert('Sure');
+                axios.post('/tusaned/idea-outputs', {
+                    outputs: document.getElementById('outputs').value,
+                    pin: document.getElementById('pin').value,
+                })
+                    .then(function (response) {
+                    // handle success
+                    console.log(response);
+                    toastr.success(response.data.message);
+                    window.location.href = '/tusaned/submit-idea-five';
+                    })
+                    .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                    toastr.error(error.response.data.message)
+                    })
+                    .then(function () {
+                    // always executed
+                    });
+                }
+        </script>
   </body>
 </html>
