@@ -43,7 +43,7 @@ class ApplyIdeaController extends Controller
         // $idea = ApplyIdea::where('pin', $request->get('pin'))->latest('created_at')->first();
         $validator = Validator($request->all(), [
             'full_name' => 'required|string|min:5|max:30',
-            'pin' => 'required|string|min:9|max:20',
+            'pin' => 'required|string|min:9|max:20|exists:apply_ideas,pin',
             'phone' => 'required|string|min:7|max:20',
             'location' => 'required|string|min:5|max:15',
         ]);
@@ -87,7 +87,7 @@ class ApplyIdeaController extends Controller
         $validator = Validator($request->all(), [
             'desc' => 'required|string|min:10|max:500',
             'governorate' => 'required|string|min:3|max:30',
-            'pin' => 'required|string|min:9|max:20',
+            'pin' => 'required|string|min:9|max:20|exists:apply_ideas,pin',
             'location' => 'required|string|min:5|max:30',
             'goals' => 'required|string|min:10|max:300',
             'importance' => 'required|string|min:10|max:300',
