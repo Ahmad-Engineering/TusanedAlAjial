@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{asset('tusaned/css/submitIdea.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/style.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/mediaQ.css')}}" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('tusaned/toastr/toastr.min.css')}}">
   </head>
   <body>
     <div id="loading-wrapper">
@@ -214,6 +216,7 @@
                       required=""
                       type="text"
                       placeholder="مثال: محمد أحمد محمود عبدالله"
+                      id="full_name"
                     />
                   </div>
 
@@ -223,8 +226,9 @@
                       class="form-control form-control-lg"
                       name="num-iden"
                       required=""
-                      type="text"
+                      type="number"
                       placeholder="مثال: 405060123"
+                      id="pin"
                     />
                   </div>
                   <div class="col-md-6 mt-2">
@@ -233,8 +237,9 @@
                       class="form-control form-control-lg"
                       name="phone-num"
                       required=""
-                      type="text"
+                      type="number"
                       placeholder="مثال: 00972591234567"
+                      id="phone"
                     />
                   </div>
 
@@ -249,6 +254,10 @@
                       <option value="" disabled selected hidden>
                         مثال: gaza
                       </option>
+                      <option value="north">شمال غزة</option>
+                      <option value="east">شرق غزة</option>
+                      <option value="weast">غرب غزة</option>
+                      <option value="south">جنوب غزة</option>
                     </select>
                   </div>
                 </div>
@@ -278,7 +287,7 @@
                 <a href="{{route('submit.idea.one')}}"> السابق</a>
               </div>
               <div class="next-btn mt-2 mt-md-5 mb-2 mt-sm-3">
-                <a href="{{route('submit.idea.three')}}"> التالي</a>
+                <a href="#" id="Link2" onclick="delegates()"> التالي</a>
               </div>
             </div>
           </div>
@@ -343,5 +352,34 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
+    {{-- AXIOS LIBRARY --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Toastr -->
+    <script src="{{asset('tusaned/toastr/toastr.min.js')}}"></script>
+    <script>
+        function delegates () {
+        // alert('Sure');
+            axios.post('/tusaned/delegations-names', {
+                full_name: document.getElementById('full_name').value,
+                pin: document.getElementById('pin').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value,
+            })
+                .then(function (response) {
+                // handle success
+                console.log(response);
+                toastr.success(response.data.message);
+                window.location.href = '/tusaned/submit-idea-three';
+                })
+                .catch(function (error) {
+                // handle error
+                console.log(error);
+                toastr.error(error.response.data.message)
+                })
+                .then(function () {
+                // always executed
+                });
+            }
+    </script>
   </body>
 </html>

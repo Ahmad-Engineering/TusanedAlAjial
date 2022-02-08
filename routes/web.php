@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TusanedController;
 use Illuminate\Support\Facades\Route;
@@ -37,11 +38,17 @@ Route::prefix('tusaned')->group(function () {
     Route::get('about-us-two', [TusanedController::class, 'showAboutBrachTwo'])->name('about.branch.two');
     Route::get('about-us-three', [TusanedController::class, 'showAboutBrachThree'])->name('about.branch.three');
 
+    // SHOW SUBMIT IDEA
     Route::get('submit-idea-one', [TusanedController::class, 'showSubmitIdeaOne'])->name('submit.idea.one');
     Route::get('submit-idea-two', [TusanedController::class, 'showSubmitIdeaTwo'])->name('submit.idea.two');
     Route::get('submit-idea-three', [TusanedController::class, 'showSubmitIdeaThree'])->name('submit.idea.three');
     Route::get('submit-idea-four', [TusanedController::class, 'showSubmitIdeaFour'])->name('submit.idea.four');
     Route::get('submit-idea-five', [TusanedController::class, 'showSubmitIdeaFive'])->name('submit.idea.five');
+
+    // SUBMIT IDEA
+    Route::post('personal-info', [ApplyIdeaController::class, 'personalInfo']);
+    Route::post('delegations-names', [ApplyIdeaController::class, 'delegatesNames']);
+    Route::post('idea-desc', [ApplyIdeaController::class, 'ideaDesc']);
 
     // CONTACT US POST ACTION
     Route::resource('contact-us-sending', ContactController::class);

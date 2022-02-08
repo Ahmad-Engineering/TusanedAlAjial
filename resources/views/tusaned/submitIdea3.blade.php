@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{asset('tusaned/css/submitIdea.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/style.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/mediaQ.css')}}" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('tusaned/toastr/toastr.min.css')}}">
   </head>
   <body>
     <div id="loading-wrapper">
@@ -210,7 +212,7 @@
                     <label> وصف المبادرة : </label>
                     <textarea
                       name="desc-idea"
-                      id="desc-idea"
+                      id="desc"
                       cols="30"
                       rows="5"
                       class="form-control form-control-lg"
@@ -224,9 +226,26 @@
                   <div class="col-md-6 mt-2">
                     <label>المحافظة : </label>
 
-                    <select name="" class="form-control form-control-lg">
+                    <select name="" class="form-control form-control-lg" id="governorate">
                       <option value="" hidden>اختر المحافظة</option>
+                      <option value="north-gaza">شمال غزة</option>
+                      <option value="gaza">غزة</option>
+                      <option value="dear-albalah">دير البلح</option>
+                      <option value="khan-unes">خان يونس</option>
+                      <option value="rafah">رفح</option>
+                      <option value="another">غير ذلك</option>
                     </select>
+                  </div>
+                  <div class="col-md-6 mt-2">
+                    <label> رقم الهوية : </label>
+                    <input
+                      class="form-control form-control-lg"
+                      name="num-iden"
+                      required=""
+                      type="number"
+                      placeholder="مثال: 405060123"
+                      id="pin"
+                    />
                   </div>
 
                   <div class="col-md-6 mt-2">
@@ -239,6 +258,18 @@
                       <option value="" disabled selected hidden>
                         اختر الحي
                       </option>
+                      <option value="al-tufah">التفاح</option>
+                      <option value="al-darag">الدرج</option>
+                      <option value="al-remal">الرمال</option>
+                      <option value="al-zyton-hy-sakany">الزيتون (حي سكني)</option>
+                      <option value="al-zyton-gaza">الزيتون (غزة)</option>
+                      <option value="al-shegaia">الشجاعية</option>
+                      <option value="al-shekh-redowan">الشيخ رضوان (غزة)</option>
+                      <option value="al-shekh-egleen">الشيخ عجلين</option>
+                      <option value="al-sabra">الصبرة (غزة)</option>
+                      <option value="tal-al-hawa">تل الهوى (غزة)</option>
+                      <option value="mokhyam-al-shadie">مخيم الشاطئ</option>
+                      <option value="غير ذلك"></option>
                     </select>
                   </div>
                 </div>
@@ -254,7 +285,7 @@
                     <label>اهداف المبادرة : </label>
                     <textarea
                       name="desc-idea"
-                      id="desc-idea"
+                      id="goals"
                       cols="30"
                       rows="1"
                       class="form-control form-control-lg"
@@ -284,7 +315,7 @@
                     <label> أهمية المبادرة : </label>
                     <textarea
                       name="desc-idea"
-                      id="desc-idea"
+                      id="importance"
                       cols="30"
                       rows="5"
                       class="form-control form-control-lg"
@@ -302,6 +333,7 @@
                       required=""
                       type="text"
                       placeholder="مثال: ادخل عدد الذكور"
+                      id="male-no"
                     />
                   </div>
                   <div class="col-md-6 mt-2">
@@ -312,6 +344,7 @@
                       required=""
                       type="text"
                       placeholder="مثال: ادخل عدد الاناث"
+                      id="female-no"
                     />
                   </div>
                 </div>
@@ -327,7 +360,7 @@
                     <label> منهجية وآلية تنفيذ المبادرة : </label>
                     <textarea
                       name="desc-idea"
-                      id="desc-idea"
+                      id="methodology"
                       cols="30"
                       rows="1"
                       class="form-control form-control-lg form-control-lg"
@@ -362,7 +395,7 @@
                 <a href="{{route('submit.idea.two')}}"> السابق</a>
               </div>
               <div class="next-btn mt-2 mt-md-5 mb-2 mt-sm-3">
-                <a href="{{route('submit.idea.four')}}"> التالي</a>
+                <a href="#" id="Link3" onclick="desc()"> التالي</a>
               </div>
             </div>
           </div>
@@ -426,5 +459,39 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
+    {{-- AXIOS LIBRARY --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Toastr -->
+    <script src="{{asset('tusaned/toastr/toastr.min.js')}}"></script>
+    <script>
+        function desc () {
+        // alert('Sure');
+            axios.post('/tusaned/idea-desc', {
+                desc: document.getElementById('desc').value,
+                governorate: document.getElementById('governorate').value,
+                pin: document.getElementById('pin').value,
+                location: document.getElementById('location').value,
+                goals: document.getElementById('goals').value,
+                importance: document.getElementById('importance').value,
+                male_no: document.getElementById('male-no').value,
+                female_no: document.getElementById('female-no').value,
+                methodology: document.getElementById('methodology').value,
+            })
+                .then(function (response) {
+                // handle success
+                console.log(response);
+                toastr.success(response.data.message);
+                window.location.href = '/tusaned/submit-idea-four';
+                })
+                .catch(function (error) {
+                // handle error
+                console.log(error);
+                toastr.error(error.response.data.message)
+                })
+                .then(function () {
+                // always executed
+                });
+            }
+    </script>
   </body>
 </html>

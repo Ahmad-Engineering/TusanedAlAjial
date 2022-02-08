@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{asset('tusaned/css/submitIdea.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/style.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/mediaQ.css')}}" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('tusaned/toastr/toastr.min.css')}}">
   </head>
   <body>
     <div id="loading-wrapper">
@@ -212,6 +214,7 @@
                       required=""
                       type="text"
                       placeholder="مثال: مبادرة الأفكار الابداعية"
+                      id="idea_name"
                     />
                   </div>
 
@@ -223,6 +226,7 @@
                       required=""
                       type="email"
                       placeholder="مثال: محمد أحمد محمود عبدالله"
+                      id="full_name"
                     />
                   </div>
                   <div class="col-md-6 mt-2">
@@ -231,8 +235,9 @@
                       class="form-control form-control-lg"
                       name="phone-num"
                       required=""
-                      type="text"
+                      type="number"
                       placeholder="مثال: 00972591234567"
+                      id="phone"
                     />
                   </div>
 
@@ -242,15 +247,16 @@
                       class="form-control form-control-lg"
                       name="iden-num"
                       required=""
-                      type="text"
+                      type="number"
                       placeholder="مثال: 405060123"
+                      id="pin"
                     />
                   </div>
                 </div>
               </div>
             </div>
             <div class="next-btn text-center mt-3 pt-3 mt-md-5 mb-4">
-              <a href="{{route('submit.idea.two')}}"> التالي</a>
+              <a id="myLink1" href="#" onclick="personalInfo()"> التالي</a>
             </div>
           </div>
         </div>
@@ -314,5 +320,34 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
+    {{-- AXIOS LIBRARY --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Toastr -->
+    <script src="{{asset('tusaned/toastr/toastr.min.js')}}"></script>
+    <script>
+        function personalInfo () {
+        // alert('Sure');
+            axios.post('/tusaned/personal-info', {
+                idea_name: document.getElementById('idea_name').value,
+                full_name: document.getElementById('full_name').value,
+                phone: document.getElementById('phone').value,
+                pin: document.getElementById('pin').value,
+            })
+                .then(function (response) {
+                // handle success
+                console.log(response);
+                toastr.success(response.data.message);
+                window.location.href = '/tusaned/submit-idea-two';
+                })
+                .catch(function (error) {
+                // handle error
+                console.log(error);
+                toastr.error(error.response.data.message)
+                })
+                .then(function () {
+                // always executed
+                });
+            }
+    </script>
   </body>
 </html>
