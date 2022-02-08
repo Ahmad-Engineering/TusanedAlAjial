@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApplyIdea;
+use App\Models\IdeaBudget;
 use App\Models\IdeaDesc;
 use App\Models\IdeaOutputs;
 use App\Models\Staff;
@@ -145,6 +146,42 @@ class ApplyIdeaController extends Controller
                 'message' => $isSaved ? 'تم حفظ التقدم' : 'حدث خطأ ما يرجى المحاولة مرة أخرى',
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
 
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function budget (Request $request) {
+        $validator = Validator($request->all(), [
+            'type' => 'required|string|min:5|max:10',
+            'unit' => 'required|string|min:5|max:10',
+            'amount' => 'required|numeric|min:3|max:100000',
+            'price' => 'required|numeric|min:3|max:100000',
+            'salary_shikel' => 'required|integer|min:10|max:1000000',
+            'price_salary_shikel' => 'required|integer|min:10|max:1000000',
+            'pin' => 'required|string|min:9|max:20|exists:apply_ideas,pin',
+        ]);
+
+        if (!$validator->fails()) {
+            // GETTING IDEA
+            $idea = ApplyIdea::select(['id'])->where('pin', $request->get('pin'))->latest('created_at')->first();
+
+            $budget = new IdeaBudget();
+            $budget->type = $request->get('type');
+            $budget->unit = $request->get('unit');
+            $budget->amount = $request->get('amount');
+            $budget->price = $request->get('price');
+            $budget->salary_shikel = $request->get('salary_shikel');
+            $budget->price_salary_shikel = $request->get('price_salary_shikel');
+            $budget->notes = $request->get('notes');
+            $budget->idea_id = $idea->id;
+            $isSaved = $budget->save();
+
+            return response()->json([
+                'message' => $isSaved ? 'نقدر لك مشاركتك وتم حفظ الطلب وسيتم التواصل معك عما قريب' : 'حدث خطأ ما يرجى المحاولة مرة أخرى'
+            ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
         }else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first(),

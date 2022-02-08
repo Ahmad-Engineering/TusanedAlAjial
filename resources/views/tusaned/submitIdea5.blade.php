@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{asset('tusaned/css/submitIdea.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/style.css')}}" />
     <link rel="stylesheet" href="{{asset('tusaned/css/mediaQ.css')}}" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('tusaned/toastr/toastr.min.css')}}">
 </head>
 
 <body>
@@ -201,32 +203,43 @@
                                     <div class="budget-wrapper d-flex flex-column flex-sm-row">
                                         <div class="">
                                             <input class="form-control form-control-lg" name="brand" required=""
-                                                type="text" placeholder="الصنف" />
+                                                type="text" placeholder="الصنف" id="type"/>
                                         </div>
                                         <div class="">
                                              <input class="form-control form-control-lg" name="unit" required=""
-                                                type="text" placeholder="الوحدة" />
+                                                type="text" placeholder="الوحدة" id="unit"/>
                                         </div>
                                         <div class="">
                                              <input class="form-control form-control-lg" name="quantity" required=""
-                                                type="email" placeholder="الكمية" />
+                                                type="number" placeholder="الكمية" id="amount"/>
                                         </div>
                                         <div class="">
                                              <input class="form-control form-control-lg" name="price" required=""
-                                                type="text" placeholder="المبلغ للوحدة" />
+                                                type="number" placeholder="المبلغ للوحدة" id="price"/>
                                         </div>
                                         <div class="">
                                              <input class="form-control form-control-lg" name="total" required=""
-                                                type="text" placeholder="الإجمالي بالشيكل" />
+                                                type="number" placeholder="الإجمالي بالشيكل" id="salary_shikel"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     <label> الملاحظات : </label>
-                                    <textarea name="hints-idea" id="hints-idea" cols="30" rows="1"
+                                    <textarea name="hints-idea" id="notes" cols="30" rows="1"
                                         class="form-control form-control-lg form-control-lg"
                                         placeholder="الرجاء كتابة ملاحظاتك هنا..."></textarea>
                                 </div>
+                                <div class="col-md-12 mt-2">
+                                    <label> رقم الهوية : </label>
+                                    <input
+                                      class="form-control form-control-lg"
+                                      name="num-iden"
+                                      required=""
+                                      type="number"
+                                      placeholder="مثال: 405060123"
+                                      id="pin"
+                                    />
+                                  </div>
                             </div>
                         </div>
                         <div class="
@@ -247,7 +260,7 @@
                             <div class="row">
                                 <div class="col-md-12 mt-2">
                                     <label>       المبلغ الإجمالي بالشيكل : </label>
-                                    <input class="form-control form-control-lg" name="all-salary" required=""
+                                    <input class="form-control form-control-lg" name="all-salary" required="" id="price_salary_shikel"
                                     type="text" placeholder="1000 شيكل" />
 
                                 </div>
@@ -266,7 +279,7 @@
                 <a href="{{route('submit.idea.four')}}"> السابق</a>
               </div>
               <div class="next-btn mt-2 mt-md-5 mb-2 mt-sm-3">
-                <a href="./submitIdea4.html"> ارسال طلب</a>
+                <a href="#" id="Link5" onclick="budget()"> ارسال طلب</a>
               </div>
 
                     </div>
@@ -327,6 +340,39 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
+    {{-- AXIOS LIBRARY --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Toastr -->
+    <script src="{{asset('tusaned/toastr/toastr.min.js')}}"></script>
+    <script>
+        function budget () {
+        // alert('Sure');
+            axios.post('/tusaned/idea-budget', {
+                type: document.getElementById('type').value,
+                unit: document.getElementById('unit').value,
+                amount: document.getElementById('amount').value,
+                price: document.getElementById('price').value,
+                salary_shikel: document.getElementById('salary_shikel').value,
+                price_salary_shikel: document.getElementById('price_salary_shikel').value,
+                notes: document.getElementById('notes').value,
+                pin: document.getElementById('pin').value,
+            })
+                .then(function (response) {
+                // handle success
+                console.log(response);
+                toastr.success(response.data.message);
+                window.location.href = '/';
+                })
+                .catch(function (error) {
+                // handle error
+                console.log(error);
+                toastr.error(error.response.data.message)
+                })
+                .then(function () {
+                // always executed
+                });
+            }
+    </script>
 </body>
 
 </html>

@@ -312,32 +312,32 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
-        {{-- AXIOS LIBRARY --}}
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <!-- Toastr -->
-        <script src="{{asset('tusaned/toastr/toastr.min.js')}}"></script>
-        <script>
-            function outputs () {
-            // alert('Sure');
-                axios.post('/tusaned/idea-outputs', {
-                    outputs: document.getElementById('outputs').value,
-                    pin: document.getElementById('pin').value,
+    {{-- AXIOS LIBRARY --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Toastr -->
+    <script src="{{asset('tusaned/toastr/toastr.min.js')}}"></script>
+    <script>
+        function outputs () {
+        // alert('Sure');
+            axios.post('/tusaned/idea-outputs', {
+                outputs: document.getElementById('outputs').value,
+                pin: document.getElementById('pin').value,
+            })
+                .then(function (response) {
+                // handle success
+                console.log(response);
+                toastr.success(response.data.message);
+                window.location.href = '/tusaned/submit-idea-five';
                 })
-                    .then(function (response) {
-                    // handle success
-                    console.log(response);
-                    toastr.success(response.data.message);
-                    window.location.href = '/tusaned/submit-idea-five';
-                    })
-                    .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                    toastr.error(error.response.data.message)
-                    })
-                    .then(function () {
-                    // always executed
-                    });
-                }
-        </script>
+                .catch(function (error) {
+                // handle error
+                console.log(error);
+                toastr.error(error.response.data.message)
+                })
+                .then(function () {
+                // always executed
+                });
+            }
+    </script>
   </body>
 </html>

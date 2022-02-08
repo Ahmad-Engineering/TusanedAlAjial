@@ -50,6 +50,7 @@ Route::prefix('tusaned')->group(function () {
     Route::post('delegations-names', [ApplyIdeaController::class, 'delegatesNames']);
     Route::post('idea-desc', [ApplyIdeaController::class, 'ideaDesc']);
     Route::post('idea-outputs', [ApplyIdeaController::class, 'outputs']);
+    Route::post('idea-budget', [ApplyIdeaController::class, 'budget']);
 
     // CONTACT US POST ACTION
     Route::resource('contact-us-sending', ContactController::class);

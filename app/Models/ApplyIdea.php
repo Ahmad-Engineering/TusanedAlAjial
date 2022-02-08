@@ -20,4 +20,8 @@ class ApplyIdea extends Model
     public function outputs () {
         return $this->hasOne(IdeaOutputs::class, 'idea_id', 'id');
     }
+
+    public function budget () {
+        return $this->hasOne(IdeaBudget::class, 'idea_id', 'id');
+    }
 }
