@@ -330,6 +330,10 @@
         <script src="{{ asset('cpanel/assets/js/date-range.js') }}"></script>
         <script src="{{ asset('cpanel/assets/js/map.js') }}"></script>
         <script src="{{ asset('cpanel/assets/js/custom.js') }}"></script>
+        {{-- SWEET ALERT --}}
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {{-- AXIOS LIBRARY --}}
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         @yield('scripts')
 
 

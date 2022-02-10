@@ -91,5 +91,18 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+        if ($admin->delete()) {
+            return response()->json([
+                'icon' => 'success',
+                'title' => 'Deleted',
+                'text' => 'admin deleted successfully',
+            ], Response::HTTP_OK);
+        }else {
+            return response()->json([
+                'icon' => 'error',
+                'title' => 'Faild',
+                'text' => 'faild to delete admin',
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

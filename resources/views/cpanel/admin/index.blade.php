@@ -63,7 +63,7 @@
                                                     <a href="#">View</a>
                                                 </li>
                                                 <li class="dropdown-item">
-                                                    <a href="#">Remove</a>
+                                                    <a href="#" id="Link" onclick="confirmDestroy({{$admin->id}}, this)">Remove</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -80,4 +80,50 @@
 
 @section('scripts')
     {{-- HERE IS YOUR SCRIPTS --}}
+    <script>
+        function confirmDestroy(id, refranec) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    destroy(id, refranec);
+                }
+            });
+        }
+
+        function destroy(id, refranec) {
+            // circle/admin/teacher/{teacher}
+            axios.delete('/tusaned-cpanel/admin/' + id)
+                .then(function(response) {
+                    // handle success
+                    console.log(response);
+                    refranec.closest('tr').remove();
+                    showDeletingResult(response.data);
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                    showDeletingResult(error.response.data);
+                })
+                .then(function() {
+                    // always executed
+                });
+        }
+
+        function showDeletingResult(data) {
+            Swal.fire({
+                icon: data.icon,
+                title: data.title,
+                text: data.text,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+    </script>
 @endsection
