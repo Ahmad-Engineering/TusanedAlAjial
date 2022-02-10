@@ -41,4 +41,5 @@
 
 @section('scripts')
     {{-- HERE IS YOUR SCRIPTS --}}
+
 @endsection
