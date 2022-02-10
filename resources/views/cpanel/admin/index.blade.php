@@ -24,7 +24,7 @@
                     <table class="table card-table table-responsive table-responsive-large" style="width:100%">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>No.</th>
                                 <th>Name</th>
                                 <th class="d-none d-md-table-cell">Phone</th>
                                 <th class="d-none d-md-table-cell">E-mail</th>
@@ -34,9 +34,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $no = 1;
+                            @endphp
                             @foreach ($admins as $admin)
                                 <tr>
-                                    <td>{{ $admin->id }}</td>
+                                    <td>{{ $no }}</td>
+                                    @php
+                                        ++$no;
+                                    @endphp
                                     <td>
                                         <a class="text-dark"
                                             href="{{ route('admin.edit', $admin->id) }}">{{ $admin->name }}</a>
@@ -64,7 +70,8 @@
                                                     <a href="{{ route('admin.edit', $admin->id) }}">Edit</a>
                                                 </li>
                                                 <li class="dropdown-item">
-                                                    <a href="{{route('admin.change.password', $admin->id)}}">Change password</a>
+                                                    <a href="{{ route('admin.change.password', $admin->id) }}">Change
+                                                        password</a>
                                                 </li>
                                                 <li class="dropdown-item">
                                                     <a href="#" id="Link"
