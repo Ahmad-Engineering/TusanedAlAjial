@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CPanelController;
@@ -60,4 +61,5 @@ Route::prefix('tusaned')->group(function () {
 
 Route::prefix('tusaned-cpanel')->group(function () {
     Route::get('', [CPanelController::class, 'showDashbord'])->name('admin.dashbord');
+    Route::resource('admin', AdminController::class);
 });

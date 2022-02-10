@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
@@ -15,6 +16,15 @@ class AdminController extends Controller
     public function index()
     {
         //
+        $count = Admin::count();
+        if ($count > 0) {
+            $admins = Admin::all();
+            return response()->view('cpanel.admin.index', [
+                'admins' => $admins
+            ]);
+        }else {
+            return redirect()->route('admin.dashbord');
+        }
     }
 
     /**
