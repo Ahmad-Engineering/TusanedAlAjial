@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CPanelController;
 use App\Http\Controllers\TusanedController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,4 +55,9 @@ Route::prefix('tusaned')->group(function () {
 
     // CONTACT US POST ACTION
     Route::resource('contact-us-sending', ContactController::class);
+});
+
+
+Route::prefix('tusaned-cpanel')->group(function () {
+    Route::get('', [CPanelController::class, 'showDashbord'])->name('admin.dashbord');
 });
