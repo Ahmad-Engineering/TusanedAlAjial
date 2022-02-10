@@ -24,7 +24,7 @@ class AdminController extends Controller
             return response()->view('cpanel.admin.index', [
                 'admins' => $admins
             ]);
-        }else {
+        } else {
             return redirect()->route('admin.dashbord');
         }
     }
@@ -70,7 +70,7 @@ class AdminController extends Controller
             $admin->age = $request->get('age');
             if ($request->get('status') == 'active') {
                 $admin->status = 1;
-            }else {
+            } else {
                 $admin->status = 0;
             }
             $admin->password = Hash::make($request->get('password'));
@@ -79,7 +79,7 @@ class AdminController extends Controller
             return response()->json([
                 'message' => $isSaved ? 'Admin created successfully' : 'Faild to create admin'
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-        }else {
+        } else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first()
             ], Response::HTTP_BAD_REQUEST);
@@ -137,7 +137,7 @@ class AdminController extends Controller
             $admin->age = $request->get('age');
             if ($request->get('status') == 'active') {
                 $admin->status = 1;
-            }else {
+            } else {
                 $admin->status = 0;
             }
 
@@ -145,7 +145,7 @@ class AdminController extends Controller
             return response()->json([
                 'message' => $isSaved ? 'Admin updated successfully' : 'Faild to update admin'
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-        }else {
+        } else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first()
             ], Response::HTTP_BAD_REQUEST);
@@ -167,7 +167,7 @@ class AdminController extends Controller
                 'title' => 'Deleted',
                 'text' => 'admin deleted successfully',
             ], Response::HTTP_OK);
-        }else {
+        } else {
             return response()->json([
                 'icon' => 'error',
                 'title' => 'Faild',

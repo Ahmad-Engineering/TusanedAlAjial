@@ -60,7 +60,8 @@
                         </select>
                     </div>
                     <div class="form-footer pt-4 pt-5 mt-4 border-top">
-                        <button type="button" class="btn btn-primary btn-default" onclick="update({{$admin->id}})">Edit</button>
+                        <button type="button" class="btn btn-primary btn-default"
+                            onclick="update({{ $admin->id }})">Edit</button>
                         <button type="button" class="btn btn-secondary btn-default"
                             onclick="cancelationAddingNewAdmin()">Cancel</button>
                     </div>

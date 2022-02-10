@@ -44,8 +44,8 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="text" class="form-control" id="password"
-                            placeholder="Password" value="{{$password}}">
+                        <input type="text" class="form-control" id="password" placeholder="Password"
+                            value="{{ $password }}">
                         <span class="mt-2 d-block">We'll never share your password with anyone else.</span>
                     </div>
                     <div class="form-group">
