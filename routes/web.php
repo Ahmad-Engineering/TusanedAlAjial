@@ -72,4 +72,7 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     // CHAGNE ADMIN PASSWORD
     Route::get('change-password/{id}/admin', [AdminChangePasswordController::class, 'showChangePassword'])->name('admin.change.password');
     Route::put('change-password/{id}/admin', [AdminChangePasswordController::class, 'changePassword']);
+
+    // ADMIN LOGOUT
+    Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });

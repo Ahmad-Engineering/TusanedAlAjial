@@ -44,4 +44,12 @@ class AuthController extends Controller
         }
     }
 
+    public function logout (Request $request) {
+        if (auth('admin')->check()) {
+            auth('admin')->user()->logout;
+            $request->session()->invalidate();
+            return redirect()->route('login');
+        }
+    }
+
 }
