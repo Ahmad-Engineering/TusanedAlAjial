@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminChangePasswordController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplyIdeaController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CPanelController;
 use App\Http\Controllers\TusanedController;
@@ -59,8 +60,12 @@ Route::prefix('tusaned')->group(function () {
     Route::resource('contact-us-sending', ContactController::class);
 });
 
-
 Route::prefix('tusaned-cpanel')->group(function () {
+    Route::get('login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('login', [AuthController::class, 'login']);
+});
+
+Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     Route::get('', [CPanelController::class, 'showDashbord'])->name('admin.dashbord');
     Route::resource('admin', AdminController::class);
 
