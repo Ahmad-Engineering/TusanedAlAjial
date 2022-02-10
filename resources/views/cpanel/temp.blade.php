@@ -1,4 +1,4 @@
-@extends('cpanel.parent')
+@extends('cpanel.index')
 
 
 @section('page-title', 'Page Title')

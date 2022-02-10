@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
@@ -35,6 +37,10 @@ class AdminController extends Controller
     public function create()
     {
         //
+        $password = rand(50000, 10000000000);
+        return response()->view('cpanel.admin.create', [
+            'password' => $password,
+        ]);
     }
 
     /**
@@ -45,7 +51,39 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator($request->all(), [
+            'name' => 'required|string|min:5|max:30',
+            'email' => 'required|string|min:8|max:40',
+            'pin' => 'required|string|min:9|max:20',
+            'age' => 'required|integer|min:18|max:80',
+            'status' => 'required|string|in:active,blocked',
+            'password' => 'required|string|min:8|max:30',
+        ]);
         //
+        if (!$validator->fails()) {
+            $admin = new Admin();
+
+            $admin->name = $request->get('name');
+            $admin->email = $request->get('email');
+            $admin->pin = $request->get('pin');
+            $admin->phone = $request->get('phone');
+            $admin->age = $request->get('age');
+            if ($request->get('status') == 'active') {
+                $admin->status = 1;
+            }else {
+                $admin->status = 0;
+            }
+            $admin->password = Hash::make($request->get('password'));
+
+            $isSaved = $admin->save();
+            return response()->json([
+                'message' => $isSaved ? 'Admin created successfully' : 'Faild to create admin'
+            ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

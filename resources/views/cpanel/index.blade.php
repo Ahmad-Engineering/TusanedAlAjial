@@ -27,6 +27,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a class="sidenav-item-link" href="{{ route('admin.create') }}" id="Link1">
+                        <span class="nav-text">Add admin</span>
+
+                    </a>
+                </li>
+
 
 
 
