@@ -64,6 +64,9 @@
                                                     <a href="{{ route('admin.edit', $admin->id) }}">Edit</a>
                                                 </li>
                                                 <li class="dropdown-item">
+                                                    <a href="{{route('admin.change.password', $admin->id)}}">Change password</a>
+                                                </li>
+                                                <li class="dropdown-item">
                                                     <a href="#" id="Link"
                                                         onclick="confirmDestroy({{ $admin->id }}, this)">Remove</a>
                                                 </li>

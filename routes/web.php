@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminChangePasswordController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\ContactController;
@@ -62,4 +63,8 @@ Route::prefix('tusaned')->group(function () {
 Route::prefix('tusaned-cpanel')->group(function () {
     Route::get('', [CPanelController::class, 'showDashbord'])->name('admin.dashbord');
     Route::resource('admin', AdminController::class);
+
+    // CHAGNE ADMIN PASSWORD
+    Route::get('change-password/{id}/admin', [AdminChangePasswordController::class, 'showChangePassword'])->name('admin.change.password');
+    Route::put('change-password/{id}/admin', [AdminChangePasswordController::class, 'changePassword']);
 });
