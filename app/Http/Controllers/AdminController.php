@@ -106,6 +106,9 @@ class AdminController extends Controller
     public function edit(Admin $admin)
     {
         //
+        return response()->view('cpanel.admin.edit', [
+            'admin' => $admin
+        ]);
     }
 
     /**
@@ -118,6 +121,35 @@ class AdminController extends Controller
     public function update(Request $request, Admin $admin)
     {
         //
+        $validator = Validator($request->all(), [
+            'name' => 'required|string|min:5|max:30',
+            'email' => 'required|string|min:8|max:40',
+            'pin' => 'required|string|min:9|max:20',
+            'age' => 'required|integer|min:18|max:80',
+            'status' => 'required|string|in:active,blocked',
+        ]);
+        //
+        if (!$validator->fails()) {
+            $admin->name = $request->get('name');
+            $admin->email = $request->get('email');
+            $admin->pin = $request->get('pin');
+            $admin->phone = $request->get('phone');
+            $admin->age = $request->get('age');
+            if ($request->get('status') == 'active') {
+                $admin->status = 1;
+            }else {
+                $admin->status = 0;
+            }
+
+            $isSaved = $admin->save();
+            return response()->json([
+                'message' => $isSaved ? 'Admin updated successfully' : 'Faild to update admin'
+            ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

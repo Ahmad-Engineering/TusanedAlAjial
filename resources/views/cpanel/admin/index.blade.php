@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>{{ $admin->id }}</td>
                                     <td>
-                                        <a class="text-dark" href="">{{ $admin->name }}</a>
+                                        <a class="text-dark" href="{{route('admin.edit', $admin->id)}}">{{ $admin->name }}</a>
                                     </td>
                                     <td class="d-none d-md-table-cell">{{ $admin->phone }}</td>
                                     <td class="d-none d-md-table-cell">{{ $admin->email }}</td>
@@ -60,7 +60,7 @@
                                             <ul class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="dropdown-recent-order1">
                                                 <li class="dropdown-item">
-                                                    <a href="#">View</a>
+                                                    <a href="{{route('admin.edit', $admin->id)}}">Edit</a>
                                                 </li>
                                                 <li class="dropdown-item">
                                                     <a href="#" id="Link" onclick="confirmDestroy({{$admin->id}}, this)">Remove</a>
