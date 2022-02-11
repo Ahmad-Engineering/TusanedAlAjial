@@ -28,6 +28,7 @@
                                 <th>Name</th>
                                 <th class="d-none d-md-table-cell">Persone</th>
                                 <th class="d-none d-md-table-cell">Phone</th>
+                                <th class="d-none d-md-table-cell">Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -44,6 +45,15 @@
                                     <td class="d-none d-md-table-cell">{{ $idea->idea_name }}</td>
                                     <td class="d-none d-md-table-cell">{{ $idea->full_name }}</td>
                                     <td class="d-none d-md-table-cell">{{ $idea->phone }}</td>
+                                    @if ($idea->done)
+                                        <td>
+                                            <span class="badge badge-danger">Done</span>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <span class="badge badge-success">In-Mind</span>
+                                        </td>
+                                    @endif
                                     <td class="text-right">
                                         <div class="dropdown show d-inline-block widget-dropdown">
                                             <a class="dropdown-toggle icon-burger-mini" href="" role="button"

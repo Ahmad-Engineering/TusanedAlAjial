@@ -112,4 +112,21 @@ class IdeaController extends Controller
             'ideas' => $ideas
         ]);
     }
+
+    public function undoneIdea ($id) {
+        $idea = ApplyIdea::find($id);
+
+        if (!is_null($idea)) {
+            $idea->done = 0;
+            $isUpdated = $idea->save();
+
+            return response()->json([
+                'message' => $isUpdated ? 'Idea is returned successfully' : 'Faild to return idea',
+            ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else {
+            return response()->json([
+                'message' => 'You\'re try to access on un-existing idea.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
 }

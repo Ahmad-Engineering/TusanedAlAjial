@@ -28,6 +28,7 @@
                                 <th>Name</th>
                                 <th class="d-none d-md-table-cell">Persone</th>
                                 <th class="d-none d-md-table-cell">Phone</th>
+                                <th class="d-none d-md-table-cell">Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -44,6 +45,15 @@
                                     <td class="d-none d-md-table-cell">{{ $idea->idea_name }}</td>
                                     <td class="d-none d-md-table-cell">{{ $idea->full_name }}</td>
                                     <td class="d-none d-md-table-cell">{{ $idea->phone }}</td>
+                                    @if ($idea->done)
+                                        <td>
+                                            <span class="badge badge-danger">Done</span>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <span class="badge badge-success">In-Mind</span>
+                                        </td>
+                                    @endif
                                     <td class="text-right">
                                         <div class="dropdown show d-inline-block widget-dropdown">
                                             <a class="dropdown-toggle icon-burger-mini" href="" role="button"
@@ -52,7 +62,7 @@
                                             <ul class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="dropdown-recent-order1">
                                                 <li class="dropdown-item">
-                                                    <a href="#" id="Link" onclick="doingIdea({{ $idea->id }})">Did</a>
+                                                    <a href="#" id="Link" onclick="undoneIdea({{ $idea->id }})">Did</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -70,12 +80,12 @@
 @section('scripts')
     {{-- HERE IS YOUR SCRIPTS --}}
     <script>
-        function doingIdea(id) {
-            axios.put('/tusaned-cpanel/doing-idea/' + id + '/idea')
+        function undoneIdea(id) {
+            axios.get('/tusaned-cpanel/undone-idea/' + id + '/idea')
                 .then(function(response) {
                     // handle success
                     console.log(response);
-                    window.location.href = '/tusaned-cpanel/idea';
+                    window.location.href = '/tusaned-cpanel/did-ideas';
                     toastr.success(response.data.message);
                 })
                 .catch(function(error) {

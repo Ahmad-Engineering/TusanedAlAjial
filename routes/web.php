@@ -90,6 +90,7 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     // DONING IDEA
     Route::put('doing-idea/{id}/idea', [IdeaController::class, 'doingIdea'])->name('doing.idea');
     Route::get('did-ideas', [IdeaController::class, 'didIdeas'])->name('did.ideas');
+    Route::get('undone-idea/{id}/idea', [IdeaController::class, 'undoneIdea']);
 
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
