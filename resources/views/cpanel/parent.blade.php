@@ -95,7 +95,8 @@
 
 
                                     <li class="active">
-                                        <a class="sidenav-item-link" href="{{route('admin.edit', auth('admin')->user()->id)}}">
+                                        <a class="sidenav-item-link"
+                                            href="{{ route('admin.edit', auth('admin')->user()->id) }}">
                                             <span class="nav-text">Account</span>
 
                                         </a>
@@ -107,7 +108,7 @@
 
 
                                     <li>
-                                        <a class="sidenav-item-link" href="{{route('analysis')}}">
+                                        <a class="sidenav-item-link" href="{{ route('analysis') }}">
                                             <span class="nav-text">Analytics</span>
 
                                             <span class="badge badge-success">new</span>
@@ -241,7 +242,7 @@
                                 <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                                     <img src="{{ asset('cpanel/assets/img/user/user.png') }}" class="user-image"
                                         alt="User Image" />
-                                    <span class="d-none d-lg-inline-block">{{auth('admin')->user()->name}}</span>
+                                    <span class="d-none d-lg-inline-block">{{ auth('admin')->user()->name }}</span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <!-- User image -->
@@ -249,12 +250,13 @@
                                         <img src="{{ asset('cpanel/assets/img/user/user.png') }}"
                                             class="img-circle" alt="User Image" />
                                         <div class="d-inline-block">
-                                            {{auth('admin')->user()->name}} <small class="pt-1">{{auth('admin')->user()->email}}</small>
+                                            {{ auth('admin')->user()->name }} <small
+                                                class="pt-1">{{ auth('admin')->user()->email }}</small>
                                         </div>
                                     </li>
 
                                     <li>
-                                        <a href="{{route('admin.edit', auth('admin')->user()->id)}}">
+                                        <a href="{{ route('admin.edit', auth('admin')->user()->id) }}">
                                             <i class="mdi mdi-account"></i> My Profile
                                         </a>
                                     </li>
@@ -267,11 +269,13 @@
                                         <a href="#"> <i class="mdi mdi-diamond-stone"></i> Projects </a>
                                     </li>
                                     <li>
-                                        <a href="{{route('admin.edit', auth('admin')->user()->id)}}"> <i class="mdi mdi-settings"></i> Account Setting </a>
+                                        <a href="{{ route('admin.edit', auth('admin')->user()->id) }}"> <i
+                                                class="mdi mdi-settings"></i> Account Setting </a>
                                     </li>
 
                                     <li class="dropdown-footer">
-                                        <a href="{{route('admin.logout')}}"> <i class="mdi mdi-logout"></i> Log Out </a>
+                                        <a href="{{ route('admin.logout') }}"> <i class="mdi mdi-logout"></i> Log Out
+                                        </a>
                                     </li>
                                 </ul>
                             </li>

@@ -40,6 +40,28 @@
             </div>
         </ul>
     </li>
+    <li class="has-sub">
+        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#pages"
+            aria-expanded="false" aria-controls="pages">
+            <i class="mdi mdi-cellphone"></i>
+            <span class="nav-text">Contact</span> <b class="caret"></b>
+        </a>
+        <ul class="collapse" id="pages" data-parent="#sidebar-menu">
+            <div class="sub-menu">
+
+
+
+                <li>
+                    <a class="sidenav-item-link" href="{{route('contact-us-sending.index')}}">
+                        <span class="nav-text">Browes</span>
+
+                    </a>
+                </li>
+
+
+            </div>
+        </ul>
+    </li>
 @endsection
 
 @section('main-content')

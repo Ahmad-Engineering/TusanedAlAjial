@@ -17,6 +17,10 @@ class ContactController extends Controller
     public function index()
     {
         //
+        $contacts = Contact::where('status', 1)->get();
+        return response()->view('cpanel.contact-us.index', [
+            'contacts' => $contacts,
+        ]);
     }
 
     /**
@@ -106,5 +110,22 @@ class ContactController extends Controller
     public function destroy($id)
     {
         //
+        $contact = Contact::where('id', $id)->first();
+        $contact->status = 0;
+        $isSaved = $contact->save();
+
+        if ($isSaved) {
+            return response()->json([
+                'icon' => 'success',
+                'title' => 'Removed',
+                'text' => 'Contact request is removed.'
+            ], Response::HTTP_OK);
+        }else {
+            return response()->json([
+                'icon' => 'error',
+                'title' => 'Faild',
+                'text' => 'Somthing wrong happened.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
