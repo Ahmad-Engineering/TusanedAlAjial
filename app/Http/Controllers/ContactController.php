@@ -17,10 +17,15 @@ class ContactController extends Controller
     public function index()
     {
         //
-        $contacts = Contact::where('status', 1)->get();
-        return response()->view('cpanel.contact-us.index', [
-            'contacts' => $contacts,
-        ]);
+        $contact_count = Contact::where('status', 1)->count();
+        if ($contact_count > 0) {
+            $contacts = Contact::where('status', 1)->get();
+            return response()->view('cpanel.contact-us.index', [
+                'contacts' => $contacts,
+            ]);
+        }else {
+            return redirect()->route('admin.dashbord');
+        }
     }
 
     /**

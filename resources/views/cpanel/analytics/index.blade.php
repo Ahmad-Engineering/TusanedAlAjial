@@ -60,7 +60,7 @@
         <div class="col-xl-4 col-sm-6">
             <div class="card card-mini mb-4">
                 <div class="card-body">
-                    <h2 class="mb-1">{{$contact_count}}</h2>
+                    <h2 class="mb-1"><a href="{{route('contact-us-sending.index')}}" style="color: black;">{{$contact_count}}</a></h2>
                     <p>Contact Request</p>
                     <div class="chartjs-wrapper">
                         <div class="chartjs-size-monitor"

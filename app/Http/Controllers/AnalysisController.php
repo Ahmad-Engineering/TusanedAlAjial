@@ -16,7 +16,7 @@ class AnalysisController extends Controller
     public function showAnalysis () {
         $admin_count = Admin::count();
         $idea_count = ApplyIdea::count();
-        $contact_count = Contact::count();
+        $contact_count = Contact::where('status', 1)->count();
         return response()->view('cpanel.analytics.index', [
             'admin_count' => $admin_count,
             'idea_count' => $idea_count,
