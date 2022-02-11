@@ -45,25 +45,17 @@
                                     <td class="d-none d-md-table-cell">{{ $persone->phone }}</td>
                                     <td class="d-none d-md-table-cell">{{ $persone->pin }}</td>
                                     <td class="text-right">
-                                        {{-- <div class="dropdown show d-inline-block widget-dropdown">
+                                        <div class="dropdown show d-inline-block widget-dropdown">
                                             <a class="dropdown-toggle icon-burger-mini" href="" role="button"
                                                 id="dropdown-recent-order1" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false" data-display="static"></a>
                                             <ul class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="dropdown-recent-order1">
                                                 <li class="dropdown-item">
-                                                    <a href="{{ route('persone.edit', $persone->id) }}">Edit</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a href="{{ route('persone.change.password', $persone->id) }}">Change
-                                                        password</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a href="#" id="Link"
-                                                        onclick="confirmDestroy({{ $persone->id }}, this)">Remove</a>
+                                                    <a href="#" id="Link" onclick="blockPersone({{ $persone->id }})">Block</a>
                                                 </li>
                                             </ul>
-                                        </div> --}}
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -78,49 +70,22 @@
 @section('scripts')
     {{-- HERE IS YOUR SCRIPTS --}}
     <script>
-        function confirmDestroy(id, refranec) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    destroy(id, refranec);
-                }
-            });
-        }
-
-        function destroy(id, refranec) {
-            // circle/persone/teacher/{teacher}
-            axios.delete('/tusaned-cpanel/persone/' + id)
+        function blockPersone(id) {
+            axios.put('/tusaned-cpanel/block-persone/' + id + '/persone')
                 .then(function(response) {
                     // handle success
                     console.log(response);
-                    refranec.closest('tr').remove();
-                    showDeletingResult(response.data);
+                    window.location.href = '/tusaned-cpanel/persones';
+                    toastr.success(response.data.message);
                 })
                 .catch(function(error) {
                     // handle error
                     console.log(error);
-                    showDeletingResult(error.response.data);
+                    toastr.error(error.response.data.message)
                 })
                 .then(function() {
                     // always executed
                 });
-        }
-
-        function showDeletingResult(data) {
-            Swal.fire({
-                icon: data.icon,
-                title: data.title,
-                text: data.text,
-                showConfirmButton: false,
-                timer: 2000
-            });
         }
     </script>
 @endsection

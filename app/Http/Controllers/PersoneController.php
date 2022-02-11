@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Persone;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PersoneController extends Controller
 {
@@ -85,5 +86,22 @@ class PersoneController extends Controller
     public function destroy(Persone $persone)
     {
         //
+    }
+
+    public function blockPersone($id)
+    {
+        $persone = Persone::find($id);
+        if (!is_null($persone)) {
+            $persone->status = 0;
+            $isUpdated = $persone->save();
+
+            return response()->json([
+                'message' => $isUpdated ? 'Persone blocked successfully' : 'Faild to block persone',
+            ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else {
+            return response()->json([
+                'message' => 'You are trying to access with no persone.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

@@ -80,6 +80,9 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
 
     Route::resource('persones', PersoneController::class);
 
+    // ROUTE TO BLOCK PERSONE
+    Route::put('block-persone/{id}/persone', [PersoneController::class, 'blockPersone'])->name('block-persone');
+
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
