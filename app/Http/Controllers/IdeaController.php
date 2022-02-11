@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ApplyIdea;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class IdeaController extends Controller
 {
@@ -85,5 +86,22 @@ class IdeaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function doingIdea ($id) {
+        $idea = ApplyIdea::find($id);
+
+        if (!is_null($idea)) {
+            $idea->done = 1;
+            $isUpdated = $idea->save();
+
+            return response()->json([
+                'message' => $isUpdated ? 'Idea done successfully' : 'Faild to doing idea'
+            ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json([
+                'message' => 'You are try to edit un-existing idea',
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

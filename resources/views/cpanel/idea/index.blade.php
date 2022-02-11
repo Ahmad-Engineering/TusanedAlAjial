@@ -52,7 +52,7 @@
                                             <ul class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="dropdown-recent-order1">
                                                 <li class="dropdown-item">
-                                                    <a href="#" id="Link" onclick="blockPersone({{ $idea->id }})">Block</a>
+                                                    <a href="#" id="Link" onclick="doingIdea({{ $idea->id }})">Did</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -70,12 +70,12 @@
 @section('scripts')
     {{-- HERE IS YOUR SCRIPTS --}}
     <script>
-        function blockPersone(id) {
-            axios.put('/tusaned-cpanel/block-idea/' + id + '/idea')
+        function doingIdea(id) {
+            axios.put('/tusaned-cpanel/doing-idea/' + id + '/idea')
                 .then(function(response) {
                     // handle success
                     console.log(response);
-                    window.location.href = '/tusaned-cpanel/ideas';
+                    window.location.href = '/tusaned-cpanel/idea';
                     toastr.success(response.data.message);
                 })
                 .catch(function(error) {

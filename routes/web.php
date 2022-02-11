@@ -87,6 +87,9 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     Route::put('unblock-persone/{id}/persone', [PersoneController::class, 'unblockPersone'])->name('unblock-persone');
     Route::get('blocked-persone', [PersoneController::class, 'blockedUser'])->name('blocked.persones');
 
+    // DONING IDEA
+    Route::put('doing-idea/{id}/idea', [IdeaController::class, 'doingIdea'])->name('doing.idea');
+
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
