@@ -128,49 +128,43 @@
                 <li class="has-sub">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
                         data-target="#sidebar-navs" aria-expanded="false" aria-controls="sidebar-navs">
-                        <span class="nav-text">layout Sidebars</span> <b class="caret"></b>
+                        <span class="nav-text">Ideas</span> <b class="caret"></b>
                     </a>
                     <ul class="collapse" id="sidebar-navs">
                         <div class="sub-menu">
 
                             <li>
-                                <a href="sidebar-open.html">Sidebar Open</a>
+                                <a href="{{route('idea.index')}}">Browes</a>
                             </li>
 
-                            <li>
-                                <a href="sidebar-minimized.html">Sidebar Minimized</a>
-                            </li>
-
-                            <li>
-                                <a href="sidebar-offcanvas.html">Sidebar Offcanvas</a>
-                            </li>
-
-                            <li>
-                                <a href="sidebar-with-footer.html">Sidebar With Footer</a>
-                            </li>
-
-                            <li>
-                                <a href="sidebar-without-footer.html">Sidebar Without Footer</a>
-                            </li>
-
-                            <li>
-                                <a href="right-sidebar.html">Right Sidebar</a>
-                            </li>
 
                         </div>
                     </ul>
                 </li>
 
+                <li class="has-sub">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
+                        data-target="#events" aria-expanded="false" aria-controls="events">
+                        <span class="nav-text">Events</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="events">
+                        <div class="sub-menu">
+
+                            <li>
+                                <a href="sidebar-open.html">Browes</a>
+                            </li>
 
 
+                        </div>
+                    </ul>
+                </li>
 
-
-                <li>
+                {{-- <li>
                     <a class="sidenav-item-link" href="rtl.html">
                         <span class="nav-text">RTL Direction</span>
 
                     </a>
-                </li>
+                </li> --}}
 
 
 
