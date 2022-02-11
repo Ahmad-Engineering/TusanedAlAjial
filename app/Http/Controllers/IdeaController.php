@@ -88,7 +88,8 @@ class IdeaController extends Controller
         //
     }
 
-    public function doingIdea ($id) {
+    public function doingIdea($id)
+    {
         $idea = ApplyIdea::find($id);
 
         if (!is_null($idea)) {
@@ -98,10 +99,17 @@ class IdeaController extends Controller
             return response()->json([
                 'message' => $isUpdated ? 'Idea done successfully' : 'Faild to doing idea'
             ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-        }else{
+        } else {
             return response()->json([
                 'message' => 'You are try to edit un-existing idea',
             ], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function didIdeas () {
+        $ideas = ApplyIdea::where('done', 1)->get();
+        return response()->view('cpanel.idea.did-idea', [
+            'ideas' => $ideas
+        ]);
     }
 }

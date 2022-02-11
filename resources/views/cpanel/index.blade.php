@@ -61,7 +61,7 @@
 
 
                 <li>
-                    <a class="sidenav-item-link" href="{{route('admin.edit', auth('admin')->user()->id)}}">
+                    <a class="sidenav-item-link" href="{{ route('admin.edit', auth('admin')->user()->id) }}">
                         <span class="nav-text">Update Account</span>
                     </a>
                 </li>
@@ -72,7 +72,7 @@
 
 
                 <li>
-                    <a class="sidenav-item-link" href="{{route('admin.change.password', auth('admin')->user()->id)}}">
+                    <a class="sidenav-item-link" href="{{ route('admin.change.password', auth('admin')->user()->id) }}">
                         <span class="nav-text">Change Password</span>
                     </a>
                 </li>
@@ -83,7 +83,7 @@
 
 
                 <li>
-                    <a class="sidenav-item-link" href="{{route('admin.logout')}}">
+                    <a class="sidenav-item-link" href="{{ route('admin.logout') }}">
                         <span class="nav-text">Logout</span>
 
                     </a>
@@ -111,11 +111,11 @@
                         <div class="sub-menu">
 
                             <li>
-                                <a href="{{route('persones.index')}}">Browes</a>
+                                <a href="{{ route('persones.index') }}">Browes</a>
                             </li>
 
                             <li>
-                                <a href="{{route('blocked.persones')}}">Blocked User</a>
+                                <a href="{{ route('blocked.persones') }}">Blocked User</a>
                             </li>
 
                         </div>
@@ -134,7 +134,10 @@
                         <div class="sub-menu">
 
                             <li>
-                                <a href="{{route('idea.index')}}">Browes</a>
+                                <a href="{{ route('idea.index') }}">Browes</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('did.ideas') }}">Doing Ideas</a>
                             </li>
 
 
@@ -143,8 +146,8 @@
                 </li>
 
                 <li class="has-sub">
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
-                        data-target="#events" aria-expanded="false" aria-controls="events">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#events"
+                        aria-expanded="false" aria-controls="events">
                         <span class="nav-text">Events</span> <b class="caret"></b>
                     </a>
                     <ul class="collapse" id="events">
