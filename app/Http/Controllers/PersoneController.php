@@ -22,6 +22,13 @@ class PersoneController extends Controller
         ]);
     }
 
+    public function blockedUser () {
+        $persones = Persone::where('status', 1)->get();
+        return response()->view('cpanel.persone.blocked-persones', [
+            'persones' => $persones,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -97,6 +104,22 @@ class PersoneController extends Controller
 
             return response()->json([
                 'message' => $isUpdated ? 'Persone blocked successfully' : 'Faild to block persone',
+            ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else {
+            return response()->json([
+                'message' => 'You are trying to access with no persone.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function unblockPersone ($id) {
+        $persone = Persone::where('status', 1)->find($id);
+        if (!is_null($persone)) {
+            $persone->status = 0;
+            $isUpdated = $persone->save();
+
+            return response()->json([
+                'message' => $isUpdated ? 'Persone unblocked successfully' : 'Faild to unblock persone',
             ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
         }else {
             return response()->json([

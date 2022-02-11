@@ -114,6 +114,10 @@
                                 <a href="{{route('persones.index')}}">Browes</a>
                             </li>
 
+                            <li>
+                                <a href="{{route('blocked.persones')}}">Blocked User</a>
+                            </li>
+
                         </div>
                     </ul>
                 </li>
