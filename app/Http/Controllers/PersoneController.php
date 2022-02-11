@@ -16,7 +16,7 @@ class PersoneController extends Controller
     public function index()
     {
         //
-        $persones = Persone::where('status', 1)->get();
+        $persones = Persone::where('status', 0)->get();
         return response()->view('cpanel.persone.index', [
             'persones' => $persones,
         ]);
@@ -92,7 +92,7 @@ class PersoneController extends Controller
     {
         $persone = Persone::find($id);
         if (!is_null($persone)) {
-            $persone->status = 0;
+            $persone->status = 1;
             $isUpdated = $persone->save();
 
             return response()->json([

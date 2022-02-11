@@ -15,7 +15,36 @@ use Symfony\Component\HttpFoundation\Response;
 class ApplyIdeaController extends Controller
 {
     //
-    public function personalInfo (Request $request) {
+    // THIS FUNCTION TO CHECK IF THE USER IS BLOCKED OR NOT
+    private function checkBlockedUserAndExisting($personePIN)
+    {
+        $persone = Persone::where('pin', $personePIN)->first();
+
+        if (!is_null($persone)) {
+            return $persone->status && ($this->checksPersone($personePIN) == 'exists');
+        } else {
+            return false;
+        }
+    }
+
+    // CHECK PERSONE IS EXISTS ?
+    private function checksPersone ($pin) {
+        $count = Persone::where('pin', $pin)->count();
+
+        if ($count > 0) {
+            return 'exists';
+        }else {
+            return 'not exists';
+        }
+    }
+
+    public function personalInfo(Request $request)
+    {
+        if ($this->checkBlockedUserAndExisting($request->get('pin'))) {
+            return response()->json([
+                'message' => 'You\'re blocked',
+            ], Response::HTTP_BAD_REQUEST);
+        }
         $validator = Validator($request->all(), [
             'idea_name' => 'required|string|min:5|max:30',
             'full_name' => 'required|string|min:5|max:30',
@@ -30,24 +59,36 @@ class ApplyIdeaController extends Controller
             $idea->phone = $request->get('phone');
             $idea->pin = $request->get('pin');
 
-            $persone = new Persone();
-            $persone->name = $request->get('full_name');
-            $persone->phone = $request->get('phone');
-            $persone->pin = $request->get('pin');
+            if ($this->checksPersone($request->get('pin')) == 'not exists') {
+                $persone = new Persone();
+                $persone->name = $request->get('full_name');
+                $persone->phone = $request->get('phone');
+                $persone->pin = $request->get('pin');
 
-            $isSaved = $idea->save() && $persone->save();
+                $isSaved = $idea->save() && $persone->save();
+            }else {
+                $isSaved = $idea->save();
+            }
+
 
             return response()->json([
                 'message' => $isSaved ? 'لقد تم حفظ التقدم' : 'حدثت مشكلة يرجى المحاولة مرة أخرى'
             ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
-        }else{
+        } else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first()
             ], Response::HTTP_BAD_REQUEST);
         }
     }
 
-    public function delegatesNames (Request $request) {
+
+    public function delegatesNames(Request $request)
+    {
+        if ($this->checkBlockedUserAndExisting($request->get('pin'))) {
+            return response()->json([
+                'message' => 'You\'re blocked',
+            ], Response::HTTP_BAD_REQUEST);
+        }
         // $idea = ApplyIdea::where('pin', $request->get('pin'))->latest('created_at')->first();
         $validator = Validator($request->all(), [
             'full_name' => 'required|string|min:5|max:30',
@@ -65,7 +106,17 @@ class ApplyIdeaController extends Controller
             $staff->pin = $request->get('pin');
             $staff->phone = $request->get('phone');
             $staff->location = $request->get('location');
-            $staff_isSaved = $staff->save();
+
+            if ($this->checksPersone($request->get('pin')) == 'not exists') {
+                $persone = new Persone();
+                $persone->name = $request->get('full_name');
+                $persone->phone = $request->get('phone');
+                $persone->pin = $request->get('pin');
+
+                $staff_isSaved = $staff->save() && $persone->save();
+            }else {
+                $staff_isSaved = $staff->save();
+            }
 
             if ($staff_isSaved) {
                 // GETTING STAFF
@@ -78,20 +129,25 @@ class ApplyIdeaController extends Controller
                 return response()->json([
                     'message' => $idea_isSaved ? 'تم حفظ التقدم' : 'حدثت مشكلة ما يرجى المحاولة مرة أخرى'
                 ], $idea_isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-            }else {
+            } else {
                 return response()->json([
                     'message' => 'لقد حدث خطأ ما يرجى المحاولة مرة أخرى'
                 ], Response::HTTP_BAD_REQUEST);
             }
-
-        }else {
+        } else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first()
             ], Response::HTTP_BAD_REQUEST);
         }
     }
 
-    public function ideaDesc (Request $request) {
+    public function ideaDesc(Request $request)
+    {
+        if ($this->checkBlockedUserAndExisting($request->get('pin'))) {
+            return response()->json([
+                'message' => 'You\'re blocked',
+            ], Response::HTTP_BAD_REQUEST);
+        }
         $validator = Validator($request->all(), [
             'desc' => 'required|string|min:10|max:500',
             'governorate' => 'required|string|min:3|max:30',
@@ -121,18 +177,34 @@ class ApplyIdeaController extends Controller
             $ideaDesc->methodology = $request->get('methodology');
             $ideaDesc->district = $request->get('location');
 
-            $isCreated = $ideaDesc->save();
+            if ($this->checksPersone($request->get('pin')) == 'not exists') {
+                $persone = new Persone();
+                $persone->name = $request->get('full_name');
+                $persone->phone = $request->get('phone');
+                $persone->pin = $request->get('pin');
+
+                $isCreated = $ideaDesc->save() && $persone->save();
+            }else {
+                $isCreated = $ideaDesc->save();
+            }
+
             return response()->json([
                 'message' => $isCreated ? 'تم حفظ التقدم' : 'حدث خطأ ما حاول مرة أخرى'
             ], $isCreated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-        }else {
+        } else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first()
             ], Response::HTTP_BAD_REQUEST);
         }
     }
 
-    public function outputs (Request $request) {
+    public function outputs(Request $request)
+    {
+        if ($this->checkBlockedUserAndExisting($request->get('pin'))) {
+            return response()->json([
+                'message' => 'You\'re blocked',
+            ], Response::HTTP_BAD_REQUEST);
+        }
         $validator = Validator($request->all(), [
             'outputs' => 'required|string|min:10|max:300',
             'pin' => 'required|string|min:9|max:20|exists:apply_ideas,pin'
@@ -146,20 +218,34 @@ class ApplyIdeaController extends Controller
             $idea_outputs->outputs = $request->get('outputs');
             $idea_outputs->idea_id = $idea->id;
 
-            $isSaved = $idea_outputs->save();
+            if ($this->checksPersone($request->get('pin')) == 'not exists') {
+                $persone = new Persone();
+                $persone->name = $request->get('full_name');
+                $persone->phone = $request->get('phone');
+                $persone->pin = $request->get('pin');
+
+                $isSaved = $idea_outputs->save() && $persone->save();
+            }else {
+                $isSaved = $idea_outputs->save();
+            }
 
             return response()->json([
                 'message' => $isSaved ? 'تم حفظ التقدم' : 'حدث خطأ ما يرجى المحاولة مرة أخرى',
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-
-        }else {
+        } else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first(),
             ], Response::HTTP_BAD_REQUEST);
         }
     }
 
-    public function budget (Request $request) {
+    public function budget(Request $request)
+    {
+        if ($this->checkBlockedUserAndExisting($request->get('pin'))) {
+            return response()->json([
+                'message' => 'You\'re blocked',
+            ], Response::HTTP_BAD_REQUEST);
+        }
         $validator = Validator($request->all(), [
             'type' => 'required|string|min:5|max:10',
             'unit' => 'required|string|min:5|max:10',
@@ -183,12 +269,22 @@ class ApplyIdeaController extends Controller
             $budget->price_salary_shikel = $request->get('price_salary_shikel');
             $budget->notes = $request->get('notes');
             $budget->idea_id = $idea->id;
-            $isSaved = $budget->save();
+
+            if ($this->checksPersone($request->get('pin')) == 'not exists') {
+                $persone = new Persone();
+                $persone->name = $request->get('full_name');
+                $persone->phone = $request->get('phone');
+                $persone->pin = $request->get('pin');
+
+                $isSaved = $budget->save() && $persone->save();
+            }else {
+                $isSaved = $budget->save();
+            }
 
             return response()->json([
                 'message' => $isSaved ? 'نقدر لك مشاركتك وتم حفظ الطلب وسيتم التواصل معك عما قريب' : 'حدث خطأ ما يرجى المحاولة مرة أخرى'
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-        }else {
+        } else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first(),
             ], Response::HTTP_BAD_REQUEST);

@@ -28,7 +28,7 @@ class AddStatusToPersonesTable extends Migration
     {
         Schema::table('persones', function (Blueprint $table) {
             //
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->default(0);
         });
     }
 }
