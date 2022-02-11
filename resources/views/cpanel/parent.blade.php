@@ -299,8 +299,9 @@
                 <footer class="footer mt-auto">
                     <div class="copyright bg-white">
                         <p>
-                            &copy; <span id="copy-year">2019</span> Copyright Sleek Dashboard Bootstrap Template by
-                            <a class="text-primary" href="http://www.iamabdus.com/" target="_blank">Abdus</a>.
+                            &copy; <span id="copy-year">2022</span> Copyright Shabab Tusaned Al-Ajial by
+                            <a class="text-primary" href="https://www.linkedin.com/in/ahmad-z-a-almabhoh-6842611a4/" target="_blank">Ahmed Almabhoh</a>
+                            && <a href="https://www.linkedin.com/in/mohammedturkk/?fbclid=IwAR3E7Y204YXQGxbxbFPJlfwrkEEf0fhbEQvp_s1lwO7xasLrBXpO3SeOOI0">Moahmmed Al Turek</a>.
                         </p>
                     </div>
                     <script>

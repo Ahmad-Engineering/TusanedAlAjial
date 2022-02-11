@@ -145,7 +145,7 @@
                     </ul>
                 </li>
 
-                <li class="has-sub">
+                {{-- <li class="has-sub">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#events"
                         aria-expanded="false" aria-controls="events">
                         <span class="nav-text">Events</span> <b class="caret"></b>
@@ -159,7 +159,7 @@
 
 
                         </div>
-                    </ul>
+                    </ul> --}}
                 </li>
 
                 {{-- <li>
