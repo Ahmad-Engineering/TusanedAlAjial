@@ -6,6 +6,7 @@ use App\Models\ApplyIdea;
 use App\Models\IdeaBudget;
 use App\Models\IdeaDesc;
 use App\Models\IdeaOutputs;
+use App\Models\Persone;
 use App\Models\Staff;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
@@ -29,7 +30,12 @@ class ApplyIdeaController extends Controller
             $idea->phone = $request->get('phone');
             $idea->pin = $request->get('pin');
 
-            $isSaved = $idea->save();
+            $persone = new Persone();
+            $persone->name = $request->get('full_name');
+            $persone->phone = $request->get('phone');
+            $persone->pin = $request->get('pin');
+
+            $isSaved = $idea->save() && $persone->save();
 
             return response()->json([
                 'message' => $isSaved ? 'لقد تم حفظ التقدم' : 'حدثت مشكلة يرجى المحاولة مرة أخرى'

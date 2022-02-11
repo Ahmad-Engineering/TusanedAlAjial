@@ -7,6 +7,7 @@ use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CPanelController;
+use App\Http\Controllers\PersoneController;
 use App\Http\Controllers\TusanedController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +77,8 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     // CHAGNE ADMIN PASSWORD
     Route::get('change-password/{id}/admin', [AdminChangePasswordController::class, 'showChangePassword'])->name('admin.change.password');
     Route::put('change-password/{id}/admin', [AdminChangePasswordController::class, 'changePassword']);
+
+    Route::resource('persones', PersoneController::class);
 
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
