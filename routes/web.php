@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminChangePasswordController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
@@ -68,6 +69,9 @@ Route::prefix('tusaned-cpanel')->group(function () {
 Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     Route::get('', [CPanelController::class, 'showDashbord'])->name('admin.dashbord');
     Route::resource('admin', AdminController::class);
+
+    // THIS IS THE ANAYSIS ROUTE
+    Route::get('analysis', [AnalysisController::class, 'showAnalysis'])->name('analysis');
 
     // CHAGNE ADMIN PASSWORD
     Route::get('change-password/{id}/admin', [AdminChangePasswordController::class, 'showChangePassword'])->name('admin.change.password');

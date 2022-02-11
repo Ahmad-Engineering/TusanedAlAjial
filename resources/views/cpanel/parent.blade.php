@@ -95,8 +95,8 @@
 
 
                                     <li class="active">
-                                        <a class="sidenav-item-link" href="index.html">
-                                            <span class="nav-text">Ecommerce</span>
+                                        <a class="sidenav-item-link" href="{{route('admin.edit', auth('admin')->user()->id)}}">
+                                            <span class="nav-text">Account</span>
 
                                         </a>
                                     </li>
@@ -107,7 +107,7 @@
 
 
                                     <li>
-                                        <a class="sidenav-item-link" href="analytics.html">
+                                        <a class="sidenav-item-link" href="{{route('analysis')}}">
                                             <span class="nav-text">Analytics</span>
 
                                             <span class="badge badge-success">new</span>
