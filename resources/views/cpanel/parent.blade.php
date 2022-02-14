@@ -256,7 +256,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="{{ route('admin.edit', auth('admin')->user()->id) }}">
+                                        <a href="{{ route('admin.profile') }}">
                                             <i class="mdi mdi-account"></i> My Profile
                                         </a>
                                     </li>

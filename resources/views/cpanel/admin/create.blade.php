@@ -53,6 +53,10 @@
                         <span class="mt-2 d-block">We'll never share your password with anyone else.</span>
                     </div>
                     <div class="form-group">
+                        <label for="admin_image">Upload admin image</label>
+                        <input type="file" class="form-control-file" id="admin_image">
+                    </div>
+                    <div class="form-group">
                         <label for="status">Admin Status</label>
                         <select class="form-control" id="status">
                             <option value="active">Active</option>
@@ -79,16 +83,18 @@
         }
 
         function store() {
-            axios.post('/tusaned-cpanel/admin', {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    pin: document.getElementById('pin').value,
-                    phone: document.getElementById('phone').value,
-                    age: document.getElementById('age').value,
-                    password: document.getElementById('password').value,
-                    status: document.getElementById('status').value,
-                    bio: document.getElementById('bio').value,
-                })
+            formData = new FormData();
+            formData.append('name', document.getElementById('name').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('pin', document.getElementById('pin').value);
+            formData.append('phone', document.getElementById('phone').value);
+            formData.append('age', document.getElementById('age').value);
+            formData.append('password', document.getElementById('password').value);
+            formData.append('status', document.getElementById('status').value);
+            formData.append('bio', document.getElementById('bio').value);
+            formData.append('admin_image', document.getElementById('admin_image').files[0]);
+
+            axios.post('/tusaned-cpanel/admin', formData)
                 .then(function(response) {
                     // handle success
                     console.log(response);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\AdminSocial;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -76,10 +77,12 @@ class AdminController extends Controller
                 'age' => 'required|integer|min:18|max:80',
                 'status' => 'required|string|in:active,blocked',
                 'password' => 'required|string|min:8|max:30',
+                'admin_image' => 'required|image|mimes:jpg,png,jpeg|max:5048',
             ]);
             //
             if (!$validator->fails()) {
                 $admin = new Admin();
+                $socialAdmin = new AdminSocial();
 
                 $admin->name = $request->get('name');
                 $admin->email = $request->get('email');
@@ -87,6 +90,11 @@ class AdminController extends Controller
                 $admin->phone = $request->get('phone');
                 $admin->age = $request->get('age');
                 $admin->bio = $request->get('bio');
+                $admin_image = $request->file('admin_image');
+                $admin_image_name = time() . '_admin_' . '.' . $admin_image->getClientOriginalExtension();
+                $admin_image->move(public_path('images\admins'), $admin_image_name);
+                $admin->image = $admin_image_name;
+
                 if ($request->get('status') == 'active') {
                     $admin->status = 1;
                 } else {
@@ -95,6 +103,10 @@ class AdminController extends Controller
                 $admin->password = Hash::make($request->get('password'));
 
                 $isSaved = $admin->save();
+                // TO ADD SOCIAL ADMIN
+                $socialAdmin->admin_id = $admin->id;
+                $socialAdmin->save();
+
                 return response()->json([
                     'message' => $isSaved ? 'Admin created successfully' : 'Faild to create admin'
                 ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
