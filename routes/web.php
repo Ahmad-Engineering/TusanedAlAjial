@@ -102,7 +102,7 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     Route::resource('admin-social-media', AdminSocialController::class);
 
     // AUTHIRIZED DELETE ACCOUNT
-    Route::delete('delete-my-auth-account/{id}/admin', [DeleteAccountController::class, 'deleteAdminAccount']);
+    Route::post('delete-my-auth-account/{id}/admin', [DeleteAccountController::class, 'deleteAdminAccount']);
 
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');

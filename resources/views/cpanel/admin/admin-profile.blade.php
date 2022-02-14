@@ -173,24 +173,24 @@
                             <div class="col-lg-12">
                                 <div class="card card-default">
                                     <div class="card-header card-header-border-bottom">
-                                        <h2>{{auth('admin')->user()->name}} </h2>
+                                        <h2>{{ auth('admin')->user()->name }} </h2>
                                     </div>
                                     <div class="card-body">
                                         <form id="create-form">
                                             <div class="form-group">
                                                 <label for="name">Name</label>
                                                 <input type="text" class="form-control" id="name" placeholder="Enter Name"
-                                                    value="{{auth('admin')->user()->name}}">
+                                                    value="{{ auth('admin')->user()->name }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="bio">Bio</label>
                                                 <input type="text" class="form-control" id="bio" placeholder="Enter BIO"
-                                                    value="{{auth('admin')->user()->bio}}">
+                                                    value="{{ auth('admin')->user()->bio }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Email address</label>
                                                 <input type="email" class="form-control" id="email"
-                                                    placeholder="Enter Email" value="{{auth('admin')->user()->email}}">
+                                                    placeholder="Enter Email" value="{{ auth('admin')->user()->email }}">
                                                 <span class="mt-2 d-block">We'll never share your email with anyone
                                                     else.</span>
                                             </div>
@@ -198,19 +198,19 @@
                                                 <label for="pin">PIN</label>
                                                 <input type="text" class="form-control" id="pin"
                                                     placeholder="Enter Personal Identification Number"
-                                                    value="{{auth('admin')->user()->pin}}">
+                                                    value="{{ auth('admin')->user()->pin }}">
                                                 <span class="mt-2 d-block">We'll never share your PIN with anyone
                                                     else.</span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="phone">Phone</label>
                                                 <input type="text" class="form-control" id="phone"
-                                                    placeholder="Enter Phone" value="{{auth('admin')->user()->phone}}">
+                                                    placeholder="Enter Phone" value="{{ auth('admin')->user()->phone }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="age">Age</label>
                                                 <input type="number" class="form-control" id="age" placeholder="Enter Age"
-                                                    value="{{auth('admin')->user()->age}}">
+                                                    value="{{ auth('admin')->user()->age }}">
                                                 <span class="mt-2 d-block">New admin age should be between 18-80y
                                                     old.</span>
                                             </div>
@@ -225,7 +225,7 @@
                                             </div>
                                             <div class="form-footer pt-4 pt-5 mt-4 border-top">
                                                 <button type="button" class="btn btn-primary btn-default"
-                                                    onclick="update({{auth('admin')->user()->id}})">Edit</button>
+                                                    onclick="update({{ auth('admin')->user()->id }})">Edit</button>
                                             </div>
                                         </form>
                                     </div>
@@ -241,9 +241,24 @@
                                         <h2>Delete Account</h2>
                                     </div>
                                     <div class="card-body">
-                                        <p class="mb-5">Be careful, you are about to delete your account on the <span style="font-weight:bold;color:red;">Tusaned.com</span> platform, you will not be able to get it back again
+                                        <p class="mb-5">Be careful, you are about to delete your account on the
+                                            <span style="font-weight:bold;color:red;">Tusaned.com</span> platform, you will
+                                            not be able to get it back again
                                         </p>
-                                        <button type="button" class="mb-1 btn btn-outline-danger" onclick="confirmDestroy({{auth('admin')->user()->id}})">
+                                        @php
+                                            $username = explode('@', auth('admin')->user()->email);
+                                        @endphp
+                                        <p class="mb-5"> Enter the
+                                            <code>delete.my.auth.account.{{ $username[0] }}.sure</code>, and make sure
+                                            that you're cannt access this moment from now on.
+                                            documentaion <a href="https://getbootstrap.com/docs/4.1/components/badge/"
+                                                target="_blank"> more details.</a>
+                                        </p>
+                                        <div class="col-md-12 mb-3">
+                                            <input type="text" class="form-control" id="code" placeholder="delete.my.auth.account.{{ $username[0] }}.sure" required="">
+                                        </div>
+                                        <button type="button" class="mb-1 btn btn-outline-danger"
+                                            onclick="confirmDestroy({{ auth('admin')->user()->id }})">
                                             <i class=" mdi mdi-close-circle-outline mr-1"></i> Danger</button>
                                     </div>
                                 </div>
@@ -304,7 +319,9 @@
 
         function destroy(id) {
             // circle/admin/teacher/{teacher}
-            axios.delete('/tusaned-cpanel/delete-my-auth-account/' + id + '/admin')
+            axios.post('/tusaned-cpanel/delete-my-auth-account/' + id + '/admin', {
+                code: document.getElementById('code').value,
+            })
                 .then(function(response) {
                     // handle success
                     console.log(response);
