@@ -240,15 +240,27 @@
                             <!-- User Account -->
                             <li class="dropdown user-menu">
                                 <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                    <img src="{{ asset('cpanel/assets/img/user/user.png') }}" class="user-image"
+                                    {{-- {{ asset('cpanel/assets/img/user/user.png') }} --}}
+                                    <img
+                                        @if (is_null(auth('admin')->user()->image))
+                                            src="{{ asset('cpanel/assets/img/user/user.png') }}"
+                                        @else
+                                            src="{{asset('images/admins/' . auth('admin')->user()->image)}}"
+                                        @endif
+                                    class="user-image"
                                         alt="User Image" />
                                     <span class="d-none d-lg-inline-block">{{ auth('admin')->user()->name }}</span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <!-- User image -->
                                     <li class="dropdown-header">
-                                        <img src="{{ asset('cpanel/assets/img/user/user.png') }}"
-                                            class="img-circle" alt="User Image" />
+                                        <img
+                                            @if (is_null(auth('admin')->user()->image))
+                                                src="{{ asset('cpanel/assets/img/user/user.png') }}"
+                                            @else
+                                                src="{{asset('images/admins/' . auth('admin')->user()->image)}}"
+                                            @endif
+                                        class="img-circle" alt="User Image" />
                                         <div class="d-inline-block">
                                             {{ auth('admin')->user()->name }} <small
                                                 class="pt-1">{{ auth('admin')->user()->email }}</small>

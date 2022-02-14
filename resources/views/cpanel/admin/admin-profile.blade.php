@@ -10,16 +10,13 @@
                 <div class="profile-content-left pt-5 pb-3 px-3 px-xl-5">
                     <div class="card text-center widget-profile px-0 border-0">
                         <div class="card-img mx-auto rounded-circle">
-                            <img
-                            {{-- @if (is_null(auth('admin')->user()->image))
+                            <img {{-- @if (is_null(auth('admin')->user()->image))
                                 asset('cpanel/assets/img/user/u6.jpg')
                             @endif --}}
-                                @if (is_null(auth('admin')->user()->image))
-                                    src="{{asset('cpanel/assets/img/user/u6.jpg')}}"
+                                @if (is_null(auth('admin')->user()->image)) src="{{ asset('cpanel/assets/img/user/user.png') }}"
                                 @else
-                                    src="{{asset('images/admins/' . auth('admin')->user()->image)}}"
-                                @endif
-                            alt="user image">
+                                    src="{{ asset('images/admins/' . auth('admin')->user()->image) }}" @endif
+                                alt="user image">
                         </div>
                         <div class="card-body">
                             <h5 class="py-2 text-dark">{{ auth('admin')->user()->name }}</h5>
@@ -171,8 +168,74 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                        <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            {{-- START OF THE PROFILE --}}
+                            <div class="col-lg-12">
+                                <div class="card card-default">
+                                    <div class="card-header card-header-border-bottom">
+                                        <h2>{{auth('admin')->user()->name}} </h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="create-form">
+                                            <div class="form-group">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" id="name" placeholder="Enter Name"
+                                                    value="{{auth('admin')->user()->name}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="bio">Bio</label>
+                                                <input type="text" class="form-control" id="bio" placeholder="Enter BIO"
+                                                    value="{{auth('admin')->user()->bio}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Email address</label>
+                                                <input type="email" class="form-control" id="email"
+                                                    placeholder="Enter Email" value="{{auth('admin')->user()->email}}">
+                                                <span class="mt-2 d-block">We'll never share your email with anyone
+                                                    else.</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pin">PIN</label>
+                                                <input type="text" class="form-control" id="pin"
+                                                    placeholder="Enter Personal Identification Number"
+                                                    value="{{auth('admin')->user()->pin}}">
+                                                <span class="mt-2 d-block">We'll never share your PIN with anyone
+                                                    else.</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone">Phone</label>
+                                                <input type="text" class="form-control" id="phone"
+                                                    placeholder="Enter Phone" value="{{auth('admin')->user()->phone}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="age">Age</label>
+                                                <input type="number" class="form-control" id="age" placeholder="Enter Age"
+                                                    value="{{auth('admin')->user()->age}}">
+                                                <span class="mt-2 d-block">New admin age should be between 18-80y
+                                                    old.</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="status">Admin Status</label>
+                                                <select class="form-control" id="status">
+                                                    <option value="active"
+                                                        @if (auth('admin')->user()->status == 'active') selected @endif>Active</option>
+                                                    <option value="blocked"
+                                                        @if (auth('admin')->user()->status == 'blocked') selected @endif>Blocked</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-footer pt-4 pt-5 mt-4 border-top">
+                                                <button type="button" class="btn btn-primary btn-default"
+                                                    onclick="update({{auth('admin')->user()->id}})">Edit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -182,4 +245,32 @@
 
 @section('scripts')
     {{-- HERE IS YOUR SCRIPTS --}}
+    <script>
+        function update(id) {
+            axios.put('/tusaned-cpanel/admin/' + id, {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    pin: document.getElementById('pin').value,
+                    phone: document.getElementById('phone').value,
+                    age: document.getElementById('age').value,
+                    status: document.getElementById('status').value,
+                    bio: document.getElementById('bio').value,
+                })
+                .then(function(response) {
+                    // handle success
+                    console.log(response);
+                    toastr.success(response.data.message);
+                    document.getElementById('create-form').reset();
+                    window.location.href = '/tusaned-cpanel/profile';
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                    toastr.error(error.response.data.message)
+                })
+                .then(function() {
+                    // always executed
+                });
+        }
+    </script>
 @endsection
