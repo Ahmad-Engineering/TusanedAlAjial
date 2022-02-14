@@ -234,7 +234,20 @@
 
                         </div>
                         <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-
+                            <div class="col-lg-12">
+                                <!--Outline Icon Buttons -->
+                                <div class="card card-default">
+                                    <div class="card-header card-header-border-bottom">
+                                        <h2>Delete Account</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-5">Be careful, you are about to delete your account on the <span style="font-weight:bold;color:red;">Tusaned.com</span> platform, you will not be able to get it back again
+                                        </p>
+                                        <button type="button" class="mb-1 btn btn-outline-danger" onclick="confirmDestroy({{auth('admin')->user()->id}})">
+                                            <i class=" mdi mdi-close-circle-outline mr-1"></i> Danger</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -271,6 +284,51 @@
                 .then(function() {
                     // always executed
                 });
+        }
+
+        function confirmDestroy(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to retrive to your account this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    destroy(id);
+                }
+            });
+        }
+
+        function destroy(id) {
+            // circle/admin/teacher/{teacher}
+            axios.delete('/tusaned-cpanel/delete-my-auth-account/' + id + '/admin')
+                .then(function(response) {
+                    // handle success
+                    console.log(response);
+                    showDeletingResult(response.data);
+                    window.location.href = '/tusaned-cpanel/';
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                    showDeletingResult(error.response.data);
+                })
+                .then(function() {
+                    // always executed
+                });
+        }
+
+        function showDeletingResult(data) {
+            Swal.fire({
+                icon: data.icon,
+                title: data.title,
+                text: data.text,
+                showConfirmButton: false,
+                timer: 2000
+            });
         }
     </script>
 @endsection
