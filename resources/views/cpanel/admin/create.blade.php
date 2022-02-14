@@ -23,6 +23,10 @@
                         <input type="text" class="form-control" id="name" placeholder="Enter Name">
                     </div>
                     <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <input type="text" class="form-control" id="bio" placeholder="Enter BIO">
+                    </div>
+                    <div class="form-group">
                         <label for="exampleFormControlInput1">Email address</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter Email">
                         <span class="mt-2 d-block">We'll never share your email with anyone else.</span>
@@ -83,6 +87,7 @@
                     age: document.getElementById('age').value,
                     password: document.getElementById('password').value,
                     status: document.getElementById('status').value,
+                    bio: document.getElementById('bio').value,
                 })
                 .then(function(response) {
                     // handle success

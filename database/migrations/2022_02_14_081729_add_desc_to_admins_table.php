@@ -16,7 +16,7 @@ class AddDescToAdminsTable extends Migration
     {
         Schema::table('admins', function (Blueprint $table) {
             //
-            $table->string('desc', 200)->nullable()->after('phone');
+            $table->string('bio', 200)->nullable()->after('phone');
         });
     }
 
@@ -29,7 +29,7 @@ class AddDescToAdminsTable extends Migration
     {
         Schema::table('admins', function (Blueprint $table) {
             //
-            $table->dropColumn('desc');
+            $table->dropColumn('bio');
         });
     }
 }

@@ -24,6 +24,11 @@
                             value="{{ $admin->name }}">
                     </div>
                     <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <input type="text" class="form-control" id="bio" placeholder="Enter BIO"
+                            value="{{ $admin->bio }}">
+                    </div>
+                    <div class="form-group">
                         <label for="exampleFormControlInput1">Email address</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter Email"
                             value="{{ $admin->email }}">
@@ -49,14 +54,8 @@
                     <div class="form-group">
                         <label for="status">Admin Status</label>
                         <select class="form-control" id="status">
-                            <option value="active" @if ($admin->status)
-                                selected
-                                @endif
-                                >Active</option>
-                            <option value="blocked" @if (!$admin->status)
-                                selected
-                                @endif
-                                >Blocked</option>
+                            <option value="active" @if ($admin->status) selected @endif>Active</option>
+                            <option value="blocked" @if (!$admin->status) selected @endif>Blocked</option>
                         </select>
                     </div>
                     <div class="form-footer pt-4 pt-5 mt-4 border-top">

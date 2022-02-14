@@ -86,6 +86,7 @@ class AdminController extends Controller
                 $admin->pin = $request->get('pin');
                 $admin->phone = $request->get('phone');
                 $admin->age = $request->get('age');
+                $admin->bio = $request->get('bio');
                 if ($request->get('status') == 'active') {
                     $admin->status = 1;
                 } else {
@@ -175,6 +176,7 @@ class AdminController extends Controller
                 $admin->pin = $request->get('pin');
                 $admin->phone = $request->get('phone');
                 $admin->age = $request->get('age');
+                $admin->bio = $request->get('bio');
                 if ($request->get('email') == auth('admin')->user()->email) {
                     $admin->status = 1;
                     if ($request->get('email') == $this->email) {
