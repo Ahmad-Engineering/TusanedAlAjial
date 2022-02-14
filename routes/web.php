@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminChangePasswordController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\AdminSocialController;
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\AuthController;
@@ -91,6 +93,12 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     Route::put('doing-idea/{id}/idea', [IdeaController::class, 'doingIdea'])->name('doing.idea');
     Route::get('did-ideas', [IdeaController::class, 'didIdeas'])->name('did.ideas');
     Route::get('undone-idea/{id}/idea', [IdeaController::class, 'undoneIdea']);
+
+    // ADMIN PROFILE
+    Route::get('profile', [AdminProfileController::class, 'showAdminProfile'])->name('admin.profile');
+
+    // ADMIN SOCAIL MEDIA
+    Route::resource('admin-social-media', AdminSocialController::class);
 
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');

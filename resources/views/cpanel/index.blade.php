@@ -67,8 +67,11 @@
                 </li>
 
 
-
-
+                <li>
+                    <a class="sidenav-item-link" href="{{ route('admin.profile') }}">
+                        <span class="nav-text">Profile</span>
+                    </a>
+                </li>
 
 
                 <li>
@@ -89,9 +92,16 @@
                     </a>
                 </li>
 
+                <li class="section-title">
+                    Admin Social Media
+                </li>
 
 
-
+                <li>
+                    <a class="sidenav-item-link" href="{{ route('admin-social-media.index') }}">
+                        <span class="nav-text">Complete Account</span>
+                    </a>
+                </li>
 
 
                 <li class="section-title">
@@ -160,9 +170,9 @@
 
                         </div>
                     </ul> --}}
-                </li>
+    </li>
 
-                {{-- <li>
+    {{-- <li>
                     <a class="sidenav-item-link" href="rtl.html">
                         <span class="nav-text">RTL Direction</span>
 
@@ -172,8 +182,8 @@
 
 
 
-            </div>
-        </ul>
+    </div>
+    </ul>
     </li>
 @endsection
 

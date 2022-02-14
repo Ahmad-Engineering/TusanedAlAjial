@@ -9,4 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Admin extends Authenticatable
 {
     use HasFactory;
+
+    public function social () {
+        return $this->hasOne(AdminSocial::class, 'admin_id', 'id');
+    }
 }
