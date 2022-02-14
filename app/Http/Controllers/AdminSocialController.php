@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\AdminSocial;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,10 +44,76 @@ class AdminSocialController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator($request->all(), [
+            'facebook_link' => 'sometimes|nullable',
+            'twitter_link' => 'sometimes|nullable',
+            'skype_link' => 'sometimes|nullable',
+            'linkedin_link' => 'sometimes|nullable',
+        ]);
         //
-        return response()->json([
-            'message' => $request->get('facebook_link'),
-        ], Response::HTTP_OK);
+        if (!$validator->fails()) {
+            $adminSocial = AdminSocial::where('admin_id', auth('admin')->user()->id)->first();
+            if (!is_null($adminSocial)) {
+                if ($request->get('facebook_link') != "NULL") {
+                    $adminSocial->facebook = $request->get('facebook_link');
+                }else {
+                    $adminSocial->facebook = '#';
+                }
+                if ($request->get('skype_link') != "NULL") {
+                    $adminSocial->skype = $request->get('skype_link');
+                }else {
+                    $adminSocial->skype = '#';
+                }
+                if ($request->get('twitter_link') != "NULL") {
+                    $adminSocial->twitter = $request->get('twitter_link');
+                }else {
+                    $adminSocial->twitter = '#';
+                }
+                if ($request->get('linkedin_link') != "NULL") {
+                    $adminSocial->linkedin = $request->get('linkedin_link');
+                }else {
+                    $adminSocial->linkedin = '#';
+                }
+                $adminSocial->admin_id = auth('admin')->user()->id;
+
+                $isSaved = $adminSocial->save();
+                return response()->json([
+                    'message' => $isSaved ? 'Admin social links is saved successfully' : 'Faild to save links',
+                ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+            } else {
+                $adminSocial = new AdminSocial();
+                if ($request->get('facebook_link') != "NULL") {
+                    $adminSocial->facebook = $request->get('facebook_link');
+                }else {
+                    $adminSocial->facebook = '#';
+                }
+                if ($request->get('skype_link') != "NULL") {
+                    $adminSocial->skype = $request->get('skype_link');
+                }else {
+                    $adminSocial->skype = '#';
+                }
+                if ($request->get('twitter_link') != "NULL") {
+                    $adminSocial->twitter = $request->get('twitter_link');
+                }else {
+                    $adminSocial->twitter = '#';
+                }
+                if ($request->get('linkedin_link') != "NULL") {
+                    $adminSocial->linkedin = $request->get('linkedin_link');
+                }else {
+                    $adminSocial->linkedin = '#';
+                }
+                $adminSocial->admin_id = auth('admin')->user()->id;
+
+                $isSaved = $adminSocial->save();
+                return response()->json([
+                    'message' => $isSaved ? 'Admin social links is saved successfully' : 'Faild to save links',
+                ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+            }
+        } else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

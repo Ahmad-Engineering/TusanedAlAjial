@@ -48,16 +48,16 @@
                         <p>Nov 15, 1990</p>
                         <p class="text-dark font-weight-medium pt-4 mb-2">Social Profile</p>
                         <p class="pb-3 social-button">
-                            <a href="#" class="mb-1 btn btn-outline btn-twitter rounded-circle">
+                            <a href="{{$links->twitter}}" class="mb-1 btn btn-outline btn-twitter rounded-circle">
                                 <i class="mdi mdi-twitter"></i>
                             </a>
-                            <a href="#" class="mb-1 btn btn-outline btn-linkedin rounded-circle">
+                            <a href="{{$links->linkedin}}" class="mb-1 btn btn-outline btn-linkedin rounded-circle">
                                 <i class="mdi mdi-linkedin"></i>
                             </a>
-                            <a href="#" class="mb-1 btn btn-outline btn-facebook rounded-circle">
+                            <a href="{{$links->facebook}}" class="mb-1 btn btn-outline btn-facebook rounded-circle">
                                 <i class="mdi mdi-facebook"></i>
                             </a>
-                            <a href="#" class="mb-1 btn btn-outline btn-skype rounded-circle">
+                            <a href="{{$links->skype}}" class="mb-1 btn btn-outline btn-skype rounded-circle">
                                 <i class="mdi mdi-skype"></i>
                             </a>
                         </p>
