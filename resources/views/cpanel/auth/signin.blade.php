@@ -125,6 +125,7 @@
                     // handle error
                     console.log(error);
                     toastr.error(error.response.data.message)
+                    window.location.href = '/tusaned-cpanel/logout';
                 })
                 .then(function() {
                     // always executed

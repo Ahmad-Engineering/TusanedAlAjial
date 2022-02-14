@@ -68,7 +68,6 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-
         if ($this->checkAdminStatus()) {
             $validator = Validator($request->all(), [
                 'name' => 'required|string|min:5|max:30',
@@ -225,6 +224,13 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+        if ($admin->email == auth('admin')->user()->email) {
+            return response()->json([
+                'icon' => 'error',
+                'title' => 'Faild',
+                'text' => 'Cannt delete supper admin',
+            ], Response::HTTP_BAD_REQUEST);
+        }
         if ($this->checkAdminStatus()) {
             if (auth('admin')->user()->email == $this->email) {
                 if ($admin->delete()) {

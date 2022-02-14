@@ -249,17 +249,52 @@
                                             $username = explode('@', auth('admin')->user()->email);
                                         @endphp
                                         <p class="mb-5"> Enter the
-                                            <code>delete.my.auth.account.{{ $username[0] }}.sure</code>, and make sure
+                                            <code>delete.my.auth.account.{{ $username[0] }}.sure</code> in the field, and
+                                            make sure
                                             that you're cannt access this moment from now on.
                                             documentaion <a href="https://getbootstrap.com/docs/4.1/components/badge/"
                                                 target="_blank"> more details.</a>
                                         </p>
                                         <div class="col-md-12 mb-3">
-                                            <input type="text" class="form-control" id="code" placeholder="delete.my.auth.account.{{ $username[0] }}.sure" required="">
+                                            <input type="text" class="form-control" id="code"
+                                                placeholder="delete.my.auth.account.{{ $username[0] }}.sure" required="">
                                         </div>
                                         <button type="button" class="mb-1 btn btn-outline-danger"
                                             onclick="confirmDestroy({{ auth('admin')->user()->id }})">
                                             <i class=" mdi mdi-close-circle-outline mr-1"></i> Danger</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <!--Outline Icon Buttons -->
+                                <div class="card card-default">
+                                    <div class="card-header card-header-border-bottom">
+                                        <h2>Subscribe My Account</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-5">You are trying to make another account getting access
+                                            with your account
+                                        </p>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="email">E-mail</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Enter email you want to subscribe with" value="" required="">
+                                        </div>
+                                        @php
+                                            $username = explode('@', auth('admin')->user()->email);
+                                        @endphp
+                                        <p class="mb-5"> Enter the
+                                            <code>subscribe.my.account.{{ $username[0] }}.sure</code> in the field, and
+                                            make sure
+                                            that you're both can access to the same account.
+                                            <a href="https://getbootstrap.com/docs/4.1/components/badge/" target="_blank">
+                                                more details.</a>
+                                        </p>
+                                        <div class="col-md-12 mb-3">
+                                            <input type="text" class="form-control" id="code"
+                                                placeholder="subscribe.my.account.{{ $username[0] }}.sure" required="">
+                                        </div>
+                                        <button type="button" class="mb-1 btn btn-outline-info" onclick="">
+                                            <i class=" mdi mdi-close-circle-outline mr-1"></i> Sent Invite</button>
                                     </div>
                                 </div>
                             </div>
@@ -320,8 +355,8 @@
         function destroy(id) {
             // circle/admin/teacher/{teacher}
             axios.post('/tusaned-cpanel/delete-my-auth-account/' + id + '/admin', {
-                code: document.getElementById('code').value,
-            })
+                    code: document.getElementById('code').value,
+                })
                 .then(function(response) {
                     // handle success
                     console.log(response);
