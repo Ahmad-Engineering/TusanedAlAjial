@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,13 +38,40 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator($request->all(), [
+            'category_id' => 'required|integer|exists:categories,id',
+            'post' => 'required|string|min:10|max:300',
+            'title' => 'required|string|min:3|max:50',
+        ]);
         //
-        $count = Category::where('admin_id', auth('admin')->user()->id)->count();
-        if ($count > 0) {
+        if (!$validator->fails()) {
+            $category = Category::where('id', $request->get('category_id'))
+            ->where('admin_id', auth('admin')->user()->id)
+            ->first();
 
+            if (!is_null($category)) {
+                $post = new Post();
+                $post->text = $request->get('post');
+                if (is_null($request->get('post_image'))) {
+                    $post_image = $request->file('post_image');
+                    $post_image_name = time() . '_category_' . $request->get('category_id') . '_admin_' . auth('admin')->user()->id . '_.' . $post_image->getClientOriginalExtension();
+                    $post_image->move(public_path('/images/posts/'), $post_image_name);
+                    $post->image = $post_image_name;
+                }
+                $post->title = $request->get('title');
+                $post->category_id = $request->get('category_id');
+                $post->admin_id = auth('admin')->user()->id;
+                $isSaved = $post->save();
+
+                return response()->json([
+                    'message' => $isSaved ? 'Posted success' : 'Faild to post',
+                ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+            }else {
+                return redirect()->route('admin.profile');
+            }
         }else {
             return response()->json([
-                'message' => 'No category found, create category and try again.'
+                'message' => $validator->getMessageBag()->first(),
             ], Response::HTTP_BAD_REQUEST);
         }
     }

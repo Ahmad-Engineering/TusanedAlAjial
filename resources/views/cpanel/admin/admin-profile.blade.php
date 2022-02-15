@@ -100,9 +100,15 @@
                                                 <label for="category">Category</label>
                                                 <select class="form-control" id="category">
                                                     @foreach ($categories as $category)
-                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                        <option value="{{ $category->id }}">{{ $category->name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="title">Title</label>
+                                                <input type="text" class="form-control" id="title"
+                                                    placeholder="Enter post title">
                                             </div>
                                             <div class="form-group">
                                                 <label for="post">What's in your mind ?!</label>
@@ -117,6 +123,46 @@
                                                     class="btn btn-primary btn-default">Post</button>
                                             </div>
                                         </form>
+                                    </div>
+                                    {{-- HERE IS THE POSTS --}}
+                                    <div class="tab-content px-3 px-xl-5" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="timeline" role="tabpanel"
+                                            aria-labelledby="timeline-tab">
+                                            @foreach ($posts as $post)
+                                                <div class="media mt-5 profile-timeline-media">
+                                                    <div class="align-self-start iconbox-45 overflow-hidden mr-3">
+                                                        <img src="{{ asset('/images/admins/' . auth('admin')->user()->image) }}"
+                                                            alt="Generic placeholder image">
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h6 class="mt-0 text-dark"><a
+                                                                href="{{ route('admin.profile') }}">{{ auth('admin')->user()->name }}</a>
+                                                        </h6>
+                                                        <span>{{ $post->category->name }}</span>
+                                                        <span class="float-right">
+                                                            @php
+                                                                $date = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)->format('Y-m-d');
+                                                            @endphp
+                                                            {{ $date }}
+                                                        </span>
+                                                        <p><b style="color: black;">{{ $post->title }}</b><br>
+                                                            {{ $post->text }}</p>
+                                                        <div
+                                                            class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
+                                                            {{-- src="{{asset('cpanel/assets/img/products/pa3.jpg')}}" --}}
+                                                            <img @if (!is_null($post->image)) src="{{ asset('/images/posts/' . $post->image) }}"
+                                                                @else
+                                                                    src="{{ asset('cpanel/assets/img/products/pa3.jpg') }}" @endif
+                                                                alt="Product">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="tab-pane fade" id="profile" role="tabpanel"
+                                            aria-labelledby="profile-tab">...</div>
+                                        <div class="tab-pane fade" id="settings" role="tabpanel"
+                                            aria-labelledby="settings-tab">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -341,6 +387,8 @@
             // tusaned-cpanel/post
             formData = new FormData();
             formData.append('post', document.getElementById('post').value);
+            formData.append('title', document.getElementById('title').value);
+            formData.append('category_id', document.getElementById('category').value);
             formData.append('post_image', document.getElementById('post_image').files[0]);
 
             axios.post('/tusaned-cpanel/post/', formData)
