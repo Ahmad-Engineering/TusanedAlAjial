@@ -97,6 +97,14 @@
                                     <div class="card-body">
                                         <form>
                                             <div class="form-group">
+                                                <label for="category">Category</label>
+                                                <select class="form-control" id="category">
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="post">What's in your mind ?!</label>
                                                 <textarea class="form-control" id="post" rows="5"></textarea>
                                             </div>
@@ -105,7 +113,8 @@
                                                 <input type="file" class="form-control-file" id="post_image">
                                             </div>
                                             <div class="form-footer pt-4 pt-5 mt-4 border-top">
-                                                <button type="button" onclick="posting()" class="btn btn-primary btn-default">Post</button>
+                                                <button type="button" onclick="posting()"
+                                                    class="btn btn-primary btn-default">Post</button>
                                             </div>
                                         </form>
                                     </div>
