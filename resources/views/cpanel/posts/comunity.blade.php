@@ -25,7 +25,7 @@
                     </div>
                     <div class="media-body">
                         <h6 class="mt-0 text-dark"><a
-                                href="{{ route('admin.profile') }}">{{ $community_post->admin->name }}</a>
+                                href="{{ route('my.profile.posts', $community_post->admin->id) }}">{{ $community_post->admin->name }}</a>
                         </h6>
                         <span>{{ $community_post->category->name }}</span>
                         <span class="float-right">

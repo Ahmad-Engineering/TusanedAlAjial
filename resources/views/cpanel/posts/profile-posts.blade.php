@@ -11,7 +11,7 @@
     {{-- HERE IS YOUR MAIN CONTENT PAGE --}}
     <div class="card card-table-border-none" id="recent-orders">
         <div class="card-header justify-content-between">
-            <h2>{{auth('admin')->user()->name . ' Posts'}}</h2>
+            <h2>{{ $admin->name . ' Posts'}}</h2>
             <div class="date-range-report ">
                 <span>Jan 17, 2022 - Feb 15, 2022</span>
             </div>
@@ -20,12 +20,12 @@
             @foreach ($posts as $post)
                 <div class="media mt-5 profile-timeline-media">
                     <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                        <img src="{{ asset('/images/admins/' . auth('admin')->user()->image) }}"
+                        <img src="{{ asset('/images/admins/' . $post->admin->image) }}"
                             alt="Generic placeholder image">
                     </div>
                     <div class="media-body">
                         <h6 class="mt-0 text-dark"><a
-                                href="{{ route('admin.profile') }}">{{ auth('admin')->user()->name }}</a>
+                                href="{{ route('my.profile.posts', $post->admin->id) }}">{{ $post->admin->name }}</a>
                         </h6>
                         <span>{{ $post->category->name }}</span>
                         <span class="float-right">

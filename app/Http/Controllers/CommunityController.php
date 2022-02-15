@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -21,9 +22,11 @@ class CommunityController extends Controller
 
     public function showMyProfilePosts($id)
     {
-        $posts = Post::where('admin_id', auth('admin')->user()->id)->get();
+        $posts = Post::where('admin_id', $id)->with('admin')->with('category')->get();
+        $admin = Admin::where('id', $id)->first();
         return response()->view('cpanel.posts.profile-posts', [
             'posts' => $posts,
+            'admin' => $admin
         ]);
     }
 }
