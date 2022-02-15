@@ -75,7 +75,7 @@
                     <ul class="nav nav-tabs px-3 px-xl-5 nav-style-border" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active show" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab"
-                                aria-controls="timeline" aria-selected="true">Timeline</a>
+                                aria-controls="timeline" aria-selected="true">Community</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
@@ -88,82 +88,26 @@
                     </ul>
                     <div class="tab-content px-3 px-xl-5" id="myTabContent">
                         <div class="tab-pane fade active show" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
-                            <div class="media mt-5 profile-timeline-media">
-                                <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                                    <img src="{{ asset('cpanel/assets/img/user/u3.jpg') }}"
-                                        alt="Generic placeholder image">
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 text-dark">Larissa Gebhardt</h6>
-                                    <span>Designer</span>
-                                    <span class="float-right">5 mins ago</span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore
-                                        magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
-                                        ut aliquip.</p>
-                                    <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                                        <img src="{{ asset('cpanel/assets/img/products/pa1.jpg') }}" alt="Product">
+                            {{-- THIS IS THE COMUNITY CODE --}}
+                            <div class="col-lg-12">
+                                <div class="card card-default">
+                                    <div class="card-header card-header-border-bottom">
+                                        <h2>Let's creating new post</h2>
                                     </div>
-                                    <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                                        <img src="{{ asset('cpanel/assets/img/products/pa2.jpg') }}" alt="Product">
-                                    </div>
-                                    <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                                        <img src="{{ asset('cpanel/assets/img/products/pa3.jpg') }}" alt="Product">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media mt-5 profile-timeline-media">
-                                <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                                    <img src="{{ asset('cpanel/assets/img/user/u4.jpg') }}"
-                                        alt="Generic placeholder image">
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 text-dark">Walter Reuter</h6>
-                                    <span>Designer</span>
-                                    <span class="float-right">2 hrs ago</span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore
-                                        magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
-                                        ut aliquip.</p>
-
-                                </div>
-                            </div>
-                            <div class="media mt-5 profile-timeline-media">
-                                <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                                    <img src="{{ asset('cpanel/assets/img/user/u7.jpg') }}"
-                                        alt="Generic placeholder image">
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 text-dark">Albrecht Straub</h6>
-                                    <span>Designer</span>
-                                    <span class="float-right">5 days ago</span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore
-                                        magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
-                                        ut aliquip.</p>
-                                    <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                                        <img src="{{ asset('cpanel/assets/img/products/pa4.jpg') }}" alt="Product">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media mt-5 profile-timeline-media">
-                                <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                                    <img src="{{ asset('cpanel/assets/img/user/u8.jpg') }}"
-                                        alt="Generic placeholder image">
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 text-dark">Selena Wagner</h6>
-                                    <span>Designer</span>
-                                    <span class="float-right">Mar 05, 2018</span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore
-                                        magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
-                                        ut aliquip.</p>
-                                    <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                                        <img src="{{ asset('cpanel/assets/img/products/pa5.jpg') }}" alt="Product">
-                                    </div>
-                                    <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                                        <img src="{{ asset('cpanel/assets/img/products/pa6.jpg') }}" alt="Product">
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="post">What's in your mind ?!</label>
+                                                <textarea class="form-control" id="post" rows="5"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="post_image">Add an image</label>
+                                                <input type="file" class="form-control-file" id="post_image">
+                                            </div>
+                                            <div class="form-footer pt-4 pt-5 mt-4 border-top">
+                                                <button type="button" onclick="posting()" class="btn btn-primary btn-default">Post</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -277,7 +221,8 @@
                                         </p>
                                         <div class="col-md-12 mb-3">
                                             <label for="email">E-mail</label>
-                                            <input type="email" class="form-control" id="email" placeholder="Enter email you want to subscribe with" value="" required="">
+                                            <input type="email" class="form-control" id="email"
+                                                placeholder="Enter email you want to subscribe with" value="" required="">
                                         </div>
                                         @php
                                             $username = explode('@', auth('admin')->user()->email);
@@ -381,6 +326,30 @@
                 showConfirmButton: false,
                 timer: 2000
             });
+        }
+
+        function posting() {
+            // tusaned-cpanel/post
+            formData = new FormData();
+            formData.append('post', document.getElementById('post').value);
+            formData.append('post_image', document.getElementById('post_image').files[0]);
+
+            axios.post('/tusaned-cpanel/post/', formData)
+                .then(function(response) {
+                    // handle success
+                    console.log(response);
+                    toastr.success(response.data.message);
+                    document.getElementById('create-form').reset();
+                    window.location.href = '/tusaned-cpanel/profile';
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                    toastr.error(error.response.data.message)
+                })
+                .then(function() {
+                    // always executed
+                });
         }
     </script>
 @endsection

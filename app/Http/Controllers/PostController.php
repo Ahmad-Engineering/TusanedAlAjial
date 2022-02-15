@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
@@ -36,6 +38,14 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $count = Category::where('admin_id', auth('admin')->user()->id)->count();
+        if ($count > 0) {
+
+        }else {
+            return response()->json([
+                'message' => 'No category found, create category and try again.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

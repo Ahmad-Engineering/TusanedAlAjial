@@ -56,6 +56,30 @@
             <div class="sub-menu">
 
                 <li class="section-title">
+                    Community
+                </li>
+
+                <li class="has-sub">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#headers"
+                        aria-expanded="false" aria-controls="headers">
+                        <span class="nav-text">Category</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="headers">
+                        <div class="sub-menu">
+
+                            <li>
+                                <a href="{{route('category.index')}}">Browes</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('category.create')}}">Add Category</a>
+                            </li>
+
+                        </div>
+                    </ul>
+                </li>
+
+                <li class="section-title">
                     Account Settings
                 </li>
 
@@ -171,16 +195,6 @@
                         </div>
                     </ul> --}}
     </li>
-
-    {{-- <li>
-                    <a class="sidenav-item-link" href="rtl.html">
-                        <span class="nav-text">RTL Direction</span>
-
-                    </a>
-                </li> --}}
-
-
-
 
     </div>
     </ul>

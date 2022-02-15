@@ -7,12 +7,15 @@ use App\Http\Controllers\AdminSocialController;
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CPanelController;
 use App\Http\Controllers\DeleteAccountController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\PersoneController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TusanedController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -103,6 +106,10 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
 
     // AUTHIRIZED DELETE ACCOUNT
     Route::post('delete-my-auth-account/{id}/admin', [DeleteAccountController::class, 'deleteAdminAccount']);
+
+    Route::resource('post', PostController::class);
+    Route::resource('category', CategoryController::class);
+    Route::post('update-category/{id}', [CategoryController::class, 'update']);
 
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
