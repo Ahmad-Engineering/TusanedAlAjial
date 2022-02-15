@@ -68,11 +68,31 @@
                         <div class="sub-menu">
 
                             <li>
-                                <a href="{{route('category.index')}}">Browes</a>
+                                <a href="{{ route('category.index') }}">Browes</a>
                             </li>
 
                             <li>
-                                <a href="{{route('category.create')}}">Add Category</a>
+                                <a href="{{ route('category.create') }}">Add Category</a>
+                            </li>
+
+                        </div>
+                    </ul>
+                </li>
+
+                <li class="has-sub">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#post"
+                        aria-expanded="false" aria-controls="post">
+                        <span class="nav-text">Posts</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="post">
+                        <div class="sub-menu">
+
+                            <li>
+                                <a href="{{ route('post.community') }}">Community</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('my.profile.posts', auth('admin')->user()->id) }}">My Posts</a>
                             </li>
 
                         </div>

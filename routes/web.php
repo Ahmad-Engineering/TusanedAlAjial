@@ -8,6 +8,7 @@ use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\ApplyIdeaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CPanelController;
 use App\Http\Controllers\DeleteAccountController;
@@ -110,6 +111,12 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     Route::resource('post', PostController::class);
     Route::resource('category', CategoryController::class);
     Route::post('update-category/{id}', [CategoryController::class, 'update']);
+
+    // GET ROUTE FOR COMMUNITY
+    Route::get('post-community', [CommunityController::class, 'showCommunity'])->name('post.community');
+
+    // PROFILE POSTS
+    Route::get('my-profile-posts/{id}/admin-profile', [CommunityController::class, 'showMyProfilePosts'])->name('my.profile.posts');
 
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');

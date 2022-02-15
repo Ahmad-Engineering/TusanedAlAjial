@@ -40,7 +40,7 @@ class PostController extends Controller
     {
         $validator = Validator($request->all(), [
             'category_id' => 'required|integer|exists:categories,id',
-            'post' => 'required|string|min:10|max:300',
+            'text' => 'required|string|min:10|max:300',
             'title' => 'required|string|min:3|max:50',
         ]);
         //
@@ -51,7 +51,7 @@ class PostController extends Controller
 
             if (!is_null($category)) {
                 $post = new Post();
-                $post->text = $request->get('post');
+                $post->text = $request->get('text');
                 if (is_null($request->get('post_image'))) {
                     $post_image = $request->file('post_image');
                     $post_image_name = time() . '_category_' . $request->get('category_id') . '_admin_' . auth('admin')->user()->id . '_.' . $post_image->getClientOriginalExtension();

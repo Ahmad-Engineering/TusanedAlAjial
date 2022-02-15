@@ -13,10 +13,10 @@ class AdminProfileController extends Controller
 
     public function showAdminProfile()
     {
-        $posts = Post::where('admin_id', auth('admin')->user()->id)
-        ->with('category')
-        ->latest('created_at')
-        ->get();
+        // $posts = Post::where('admin_id', auth('admin')->user()->id)
+        // ->with('category')
+        // ->latest('created_at')
+        // ->get();
         $categories = Category::where('admin_id', auth('admin')->user()->id)
         ->where('status', true)
         ->get();
@@ -24,7 +24,7 @@ class AdminProfileController extends Controller
         return response()->view('cpanel.admin.admin-profile', [
             'links' => $links,
             'categories' => $categories,
-            'posts' => $posts
+            // 'posts' => $posts
         ]);
     }
 }
