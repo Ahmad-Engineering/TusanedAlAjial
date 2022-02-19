@@ -31,15 +31,15 @@
                     </div>
                     <div class="d-flex justify-content-between ">
                         <div class="text-center pb-4">
-                            <h6 class="text-dark pb-2">1503</h6>
-                            <p>Friends</p>
+                            <h6 class="text-dark pb-2">{{$posts_count}}</h6>
+                            <p>Posts</p>
                         </div>
                         <div class="text-center pb-4">
-                            <h6 class="text-dark pb-2">2905</h6>
+                            <h6 class="text-dark pb-2">{{$followers}}</h6>
                             <p>Followers</p>
                         </div>
                         <div class="text-center pb-4">
-                            <h6 class="text-dark pb-2">1200</h6>
+                            <h6 class="text-dark pb-2">{{$followings}}</h6>
                             <p>Following</p>
                         </div>
                     </div>
