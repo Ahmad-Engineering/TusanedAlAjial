@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activation;
 use App\Models\Admin;
+use App\Models\Post;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
