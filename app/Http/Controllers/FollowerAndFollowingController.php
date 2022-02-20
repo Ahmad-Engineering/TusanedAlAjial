@@ -26,8 +26,20 @@ class FollowerAndFollowingController extends Controller
         ]);
     }
 
-    public function showFollowing()
+    public function showFollowing($id)
     {
-        return response()->view('cpanel.follow.following');
+        $following_admin = Admin::where('id', $id)->first();
+        $following_id = Follower::where('follower', $id)->get();
+        $followings = [];
+        foreach ($following_id as $following) {
+            $admin = Admin::where('id', $following->following)->first();
+            $admin->setAttribute('follower_no', Follower::where('following', $admin->id)->count());
+            array_push($followings, $admin);
+        }
+
+        return response()->view('cpanel.follow.following', [
+            'followings' => $followings,
+            'admin' => $following_admin,
+        ]);
     }
 }
