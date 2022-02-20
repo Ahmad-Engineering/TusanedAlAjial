@@ -157,11 +157,11 @@
 
 
                 <li class="has-sub">
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#headers"
-                        aria-expanded="false" aria-controls="headers">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#persones"
+                        aria-expanded="false" aria-controls="persones">
                         <span class="nav-text">Persones</span> <b class="caret"></b>
                     </a>
-                    <ul class="collapse" id="headers">
+                    <ul class="collapse" id="persones">
                         <div class="sub-menu">
 
                             <li>

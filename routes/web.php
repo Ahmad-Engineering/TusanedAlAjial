@@ -12,6 +12,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CPanelController;
 use App\Http\Controllers\DeleteAccountController;
+use App\Http\Controllers\FollowerAndFollowingController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\PersoneController;
@@ -120,6 +121,9 @@ Route::prefix('tusaned-cpanel')->middleware('auth:admin')->group(function () {
     // PROFILE POSTS
     Route::get('my-profile-posts/{id}/admin-profile', [CommunityController::class, 'showMyProfilePosts'])->name('my.profile.posts');
 
+    // ROUTES TO SHOW FOLLOWER AND FOLLOWING
+    Route::get('follower/{id}/admin-follower', [FollowerAndFollowingController::class, 'showFollower'])->name('show.follower');
+    Route::get('following/{id}/admin-following', [FollowerAndFollowingController::class, 'showFollowing'])->name('show.following');
 
     // ADMIN LOGOUT
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');

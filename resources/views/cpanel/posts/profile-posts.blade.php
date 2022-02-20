@@ -37,11 +37,11 @@
                     <p>Posts</p>
                 </div>
                 <div class="text-center pb-4">
-                    <h6 class="text-dark pb-2">{{$followers}}</h6>
+                    <h6 class="text-dark pb-2"><a href="{{route('show.follower', $admin->id)}}" style="color: black;">{{$followers}}</a></h6>
                     <p>Followers</p>
                 </div>
                 <div class="text-center pb-4">
-                    <h6 class="text-dark pb-2">{{$followings}}</h6>
+                    <h6 class="text-dark pb-2"><a href="{{route('show.following', $admin->id)}}" style="color: black;">{{$followings}}</a></h6>
                     <p>Following</p>
                 </div>
             </div>
