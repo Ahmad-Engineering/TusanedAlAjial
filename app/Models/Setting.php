@@ -9,7 +9,7 @@ class Setting extends Model
 {
     use HasFactory;
 
-    public function admin () {
-        return $this->belongsTo(Admin::class, 'admin_id', 'id');
+    public function adminSettings () {
+        return $this->hasMany(AdminSettings::class, 'settings_type', 'type');
     }
 }

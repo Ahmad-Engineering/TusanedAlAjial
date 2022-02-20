@@ -27,6 +27,6 @@ class Admin extends Authenticatable
 
     public function setting()
     {
-        return $this->hasOne(Setting::class, 'admin_id', 'id');
+        return $this->hasOne(AdminSettings::class, 'admin_id', 'id');
     }
 }

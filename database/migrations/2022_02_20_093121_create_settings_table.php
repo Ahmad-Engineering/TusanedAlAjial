@@ -16,10 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->tinyInteger('status')->default(0);
-
-            $table->foreignId('admin_id');
-            $table->foreign('admin_id')->on('admins')->references('id');
+            $table->string('position');
 
             $table->timestamps();
         });
