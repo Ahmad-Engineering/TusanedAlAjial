@@ -11,7 +11,7 @@ class FollowerAndFollowingController extends Controller
     //
     public function showFollower($id)
     {
-        $admin = Admin::find($id);
+        $following_admin = Admin::where('id', $id)->first();
         $followers_id = Follower::where('following', $id)->get();
         $followers = [];
         foreach ($followers_id as $follower) {
@@ -22,7 +22,7 @@ class FollowerAndFollowingController extends Controller
 
         return response()->view('cpanel.follow.follower', [
             'followers' => $followers,
-            'admin' => $admin,
+            'admin' => $following_admin,
         ]);
     }
 
